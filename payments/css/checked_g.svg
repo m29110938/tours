@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="checked" width="80" height="80" viewBox="0 0 80 80">
+    <defs>
+        <style>
+            .cls-3{fill:#fff}
+        </style>
+    </defs>
+    <circle id="椭圆_21" cx="40" cy="40" r="40" fill="#32ba7c" transform="translate(0 0)"/>
+    <path id="路径_50" fill="#0aa06e" d="M188.8 186.069l20.568 20.568a39.974 39.974 0 0 0 29.653-38.612v-1.135L222.869 152z" transform="translate(-159.021 -128.025)"/>
+    <g id="组_106" transform="translate(13.438 19.748)">
+        <path id="路径_51" d="M112.771 217.076a4.724 4.724 0 0 1 0 6.562l-3.659 3.659a4.724 4.724 0 0 1-6.562 0l-16.025-16.151a4.724 4.724 0 0 1 0-6.562l3.659-3.659a4.724 4.724 0 0 1 6.562 0z" class="cls-3" transform="translate(-85.2 -187.865)"/>
+        <path id="路径_52" d="M193.485 126.525a4.724 4.724 0 0 1 6.562 0l3.659 3.659a4.724 4.724 0 0 1 0 6.562l-27.76 27.634a4.724 4.724 0 0 1-6.561 0l-3.659-3.659a4.724 4.724 0 0 1 0-6.562z" class="cls-3" transform="translate(-151.908 -125.2)"/>
+    </g>
+</svg>

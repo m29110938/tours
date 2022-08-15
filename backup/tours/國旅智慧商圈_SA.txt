@@ -1,0 +1,58 @@
+
+1. RCE ibatt APP delay
+2. PEMALL 規劃如何進行,小程序
+3. 志工平台規劃
+4. 國旅平台規劃
+5. 
+---------------------------------------
+
+上線
+遠端
+橫版
+APP 人力
+
+---------------------------------------
+
+Pototype初稿如下
+https://c3izgb.axshare.com
+
+國旅智慧商圈
+
+登入				login.html v, resetpwd.html v, forgotpwd.html v
+首頁				main.html v
+會員中心
+	會員管理		member.html v,	addmember.html v,	editmember.html v
+	會員取得 折價券 / 使用折價券列表   mycoupon.html v
+	會員取得 點數 / 使用點數列表	   mybonus.html v
+商圈管理
+	商家設定		store.html v , addstore.html v , editstore.html v
+	類別設定   		storetype.html v , addstoretype.html v, editstoretype.html v
+	紅利點數設定	bonus.html v
+	獨家優惠 		discount.html v	(推薦碼), adddiscount.html v, editdiscount.html v
+	
+	商圈維護
+	旅行社維護
+商品維護
+	商品分類		producttype.html v , addproducttype.html v , editproducttype.html v
+	商品管理		product.html v , addproduct.html v , editproduct.html v
+訂單管理
+	訂單管理		order.html v , orderdetail.html v
+	分潤報表(對帳)	profit.html v
+行銷活動管理
+	優惠券設定		coupon.html	v ,	addcoupon.html v, editcoupon.html v
+客服中心(問題管理)
+	問題分類		questiontype.html v, addquestiontype.html v, editquestiontype.html v
+	問題管理 Q&A	question.html  v , addquestion.html v,  editquestion.html v
+訊息中心
+	Banner管理		banner.html	 v , addbanner.html v , editbanner.html v		顯示期間,標題,圖片,內容
+	推播訊息		pushmsg.html v , addpushmsg.html v, editpushmsg.html v		標題,訊息,對象
+	最新消息		news.html	v , addnews.html v, editnews.html v				日期,標題,圖片,內容
+系統管理
+	帳號/密碼/權限	sysuser.html v, addsysuser.html v, editsysuser.html v
+
+
+商家列印 QRCODE 掃描圖
+導遊列印 獨家優惠 QRCODE 掃描圖
+
+
+

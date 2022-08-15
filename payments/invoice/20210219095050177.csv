@@ -1,0 +1,3 @@
+InvoiceNumber,InvoiceDate,InvoiceTime,BuyerIdentifier,BuyerName,BuyerAddress,BuyerTelephoneNumber,BuyerEmailAddress,SalesAmount,FreeTaxSalesAmount,ZeroTaxSalesAmount,TaxType,TaxRate,TaxAmount,TotalAmount,PrintMark,RandomNumber,MainRemark,CarrierType,CarrierId1,CarrierId2,NPOBAN,Description,Quantity,UnitPrice,Amount,Remark
+KU10099135,20210219,09:50:50,,史鈞陶,,,,500,0,0,1,0.05,0,500,N,,Jtg,,,,,Jtg,1,500,500,
+Finish

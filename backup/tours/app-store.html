@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>開啟旅行點點</title>
+</head>
+<body >
+
+	<img width="100" height="100" src="favicon.ico">
+	<h1>旅行點點</h1>
+
+	<a style="display:inline-block;" href="https://apps.apple.com/tw/app/id1551917653">iOS	</a>
+	<br><br>
+	<a href="https://play.google.com/store/apps/details?id=com.jotangi.nickyen">Android	</a>
+
+</body>
+</html>
+
+<script>
+function openClient(scheme_url, download_url, timeout = 600) {
+    var startTime = Date.now();
+    var ifr = document.createElement('iframe');
+
+    ifr.src = scheme_url;
+    ifr.style.display = 'none';
+    document.body.appendChild(ifr);
+
+    var t = setTimeout(function() {
+        var endTime = Date.now();
+
+        if (!startTime || endTime - startTime < timeout + 200) {
+            //App is not installed
+            //if (confirm("Application is not installed, go to the download?")) {
+                //window.open(download_url, "_blank");
+				 document.location = download_url;
+            //}
+        }
+    }, timeout);
+
+    window.onblur = function() {
+        clearTimeout(t);
+        window.addEventListener("DOMContentLoaded", function() {
+            document.body.removeChild(ifr);
+        }, false);
+    }
+}
+
+function isIOSDevice(){
+   return !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+}
+
+if (isIOSDevice()) {
+	//alert("iOS");
+	openClient('imazu://share', 'https://apps.apple.com/tw/app/id1551917653', 300);
+}else{
+	///alert("iOS");
+	var ua = navigator.userAgent.toLowerCase();
+	var isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+	if (isAndroid){
+		//alert(isAndroid);
+		openClient('imazu://share', 'https://play.google.com/store/apps/details?id=com.jotangi.nickyen', 300);
+	}
+}
+window.onload = function() {
+	//var ua = codus.userAgent.test();
+	//if(ua.iOS) codus.openApp("imazu://share","https://apps.apple.com/tw/app/id1551917653");
+	//else if(ua.android) codus.openApp("imazu://share","https://play.google.com/store/apps/details?id=com.jotangi.nickyen");
+}
+</script>

@@ -1,0 +1,103 @@
+ //4. location like
+ $bGoogle = 0;
+ if($location != '')
+ {
+  //$sql .= " and a.storeAddress like '%".$location."%'"."or a.spots like '%".$location."%'";
+  $sql1 = "select * from store where storeAddress like '%".$location."%'"."or storeName like '%".$location."%'";
+  $res = $db->query($sql1);
+  //echo $sql1;
+  if(mysqli_num_rows($res)>0)//有此一店家,所以不要用google search
+  {
+   //echo $location;
+   $bGoogle = 0;
+   $sql .= " and a.storeAddress like '%".$location."%'"."or a.storeName like '%".$location."%'";
+  }
+  else
+   $bGoogle = 1;
+ }
+ $loc_lat = 0;
+ $loc_lng = 0;
+ if($location != '' && $bGoogle == 1)
+ {
+  $location .= "+";
+  $location .= $area;
+  $url = "https://maps.googleapis.com/maps/api/geocode/json?address=%22.$location.%22&key=AIzaSyCs7NB09neTg0Y06ZCDx2_9JDihSbSSUVE%22;  
+  $out = CallAPI("GET", $url, $data);
+  $out  = json_decode($out, true);
+  //echo $out;
+  //print_r($out);//["results"]["geometry"]["location"]["lat"]);
+  //echo $out["status"];
+  if($out["status"] == "OK")
+  {
+   $loc_lat = $out["results"][0]["geometry"]["location"]["lat"];//["geometry"]["location"][0]["lat"]);
+   $loc_lng = $out["results"][0]["geometry"]["location"]["lng"];
+  }
+ }
+ //5. 
+ //租借不滿一天，顯示【以時計費】的店家
+ //租借滿一天或超過一天，顯示【以天計費】、【天時計費】的店家
+ //echo "idx:".$idx;
+ $sql .= " and  (";
+ while($idx>=0) {
+  $sql .= " a.storeId='".$stores[$idx]."'";
+  if($idx - 1>=0)
+   $sql .= " or ";
+  $idx--;
+ };
+ $sql .= ")";
+ //echo $sql;
+ //exit;
+ // TO-DO
+ //排序方式：依距離由從近到遠 
+
+ 
+ $result = $db->query($sql);
+
+ $rowCount = mysqli_num_rows($result);//mysqli_fetch_row($result)[0];
+ //echo "rowCount:".$rowCount;
+ $per = $pagesize; //每頁顯示項目數量
+ $pages = ceil($rowCount/$per); //取得不小於值的下一個整數
+ if (!$currentpage){ //假如$_GET["page"]未設置
+  $page=1; //則在此設定起始頁數
+ } else {
+  $page = intval($currentpage); //確認頁數只能夠是數值資料
+ }
+ $start = ($page-1)*$per; //每一頁開始的資料序號
+ //$result1 = mysql_query($sql.' LIMIT '.$start.', '.$per,$conn) or die("Error");
+ $result1 = $db->query($sql.' LIMIT '.$start.', '.$per);
+  
+ //mysqli_query($db, $sql);
+ $data= array();
+ if (mysqli_num_rows($result1) > 0) {
+  while($row = mysqli_fetch_assoc($result1)) {  
+   $storeImage = "https://rilink.jotangi.com.tw:11074/api/v1/storeimages/%22.intval($row['storeId']).%22/%22.$row['storeImage'];     
+   //echo $storeImage;//
+   $mallLongitude = $row['storeLongitude'];
+   $mallLlatitude = $row['storeLlatitude'];
+   if($location != '' && $loc_lat != 0 )
+   {
+    $distance = (round(6378.138*2*asin(sqrt(pow(sin(($loc_lat*pi()/180-$mallLlatitude*pi()/180)/2),2)+cos($loc_lat*pi()/180)*cos($mallLlatitude * pi()/180)* pow(sin(($loc_lng*pi()/180-$mallLongitude*pi()/180)/2),2)))*1000));
+    //echo $loc_lat;
+    //echo "  ";
+    //echo $loc_lng;
+    //echo "  ";
+    //echo $distance;
+    if($distance > 3000)//3公里
+     continue;
+   }
+   //echo pow(sin((23.469667*pi()/180-$mallLlatitude*pi()/180)/2),2);
+   $distance = (round(6378.138*2*asin(sqrt(pow(sin(($lat*pi()/180-$mallLlatitude*pi()/180)/2),2)+cos($lat*pi()/180)*cos($mallLlatitude * pi()/180)* pow(sin(($lon*pi()/180-$mallLongitude*pi()/180)/2),2)))*1000));
+   array_push($data,
+    array("storeId"=>$row['storeId'], "storeName"=>$row['storeName'], "storeImage"=>($storeImage),"storeAddress"=>$row['storeAddress'], 
+    "distance"=>($distance), "storeLlatitude"=>$row['storeLlatitude'], "storeLongitude"=>$row['storeLongitude'], "storeTel"=>$row['storeTel']));   
+  }
+ }
+ $rsp["status"] = "OK";
+ $rsp["returnCode"] = "101";
+ $rsp["errorMsg"] = "";
+ $rsp["returnData"] = $data;
+ $data["datatotalcount"]=$rowCount;
+ header('Content-Type: application/json');
+ echo (json_encode($rsp, JSON_PRETTY_PRINT));
+ 
+ mysqli_close($db);

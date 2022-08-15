@@ -1,0 +1,3 @@
+InvoiceNumber,InvoiceDate,InvoiceTime,BuyerIdentifier,BuyerName,BuyerAddress,BuyerTelephoneNumber,BuyerEmailAddress,SalesAmount,FreeTaxSalesAmount,ZeroTaxSalesAmount,TaxType,TaxRate,TaxAmount,TotalAmount,PrintMark,RandomNumber,MainRemark,CarrierType,CarrierId1,CarrierId2,NPOBAN,Description,Quantity,UnitPrice,Amount,Remark
+MP29435313,20210404,12:17:19,,郭勁志,,,,600,0,0,1,0.05,0,600,N,,Jtg,,,,,Jtg,1,600,600,
+Finish

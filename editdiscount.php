@@ -27,6 +27,7 @@ if (($_SESSION['authority']=="3")){
 				$coupon_id = $row['coupon_id'];
 				$store_id = explode("_", $coupon_id)[0];
 				$coupon_show_id = substr($coupon_id,strlen($store_id)+1,-1);
+				$coupon_show_id .= substr($coupon_id, -1);
 				// echo $coupon_show_id;
 				$coupon_type = $row['coupon_type'];
 				$coupon_name = $row['coupon_name'];
@@ -47,9 +48,9 @@ if (($_SESSION['authority']=="3")){
 				$coupon_picture = $row['coupon_picture'];
 				$coupon_status = $row['coupon_status'];
 				$coupon_number = $row['coupon_number'];
-				if ($coupon_number = -9999){
-					$coupon_number = 999999999;
-				}
+				// if ($coupon_number = '-9999'){
+				// 	$coupon_number = '999999999';
+				// }
 			}
 		//mysqli_close($link);
 		}else{
@@ -525,6 +526,7 @@ if (($_SESSION['authority']=="3")){
 		// console.log("<?=$coupon_type?>");
 		if (document.getElementById("coupon_type").value == "2") {
 			// console.log("--");
+			document.getElementById("coupon_number").style.display="none";
 			document.getElementById("coupon_startdate").value="";
 			document.getElementById("coupon_startdate").disabled="disabled";
 			document.getElementById("coupon_enddate").value="";
@@ -535,6 +537,7 @@ if (($_SESSION['authority']=="3")){
 			document.getElementById("coupon_issue_enddate").value="<?=substr($coupon_issue_enddate,0,7)?>";
 		}else{
 			// console.log("11");
+			document.getElementById("coupon_number").style.display="block";
 			document.getElementById("coupon_startdate").value="<?=substr($coupon_startdate,0,10)?>";
 			document.getElementById("coupon_startdate").disabled="";
 			document.getElementById("coupon_enddate").value="<?=substr($coupon_enddate,0,10)?>";

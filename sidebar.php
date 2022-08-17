@@ -13,7 +13,7 @@
 		<!--<hr class="sidebar-divider my-0">-->
 
 		<!-- Nav Item - Dashboard -->
-		<li class="nav-item">
+		<li id="hh" class="nav-item">
 		<a class="nav-link" href="main.php">
 			<i class="fas fa-fw fa-home"></i>
 			<span>首頁</span></a>
@@ -24,7 +24,7 @@
 		<!-- Nav Item - Charts -->
 		<?php if ($_SESSION['authority']!="4"){  ?>
 		<li id="aa" class="nav-item">
-		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities0" aria-expanded="true" aria-controls="collapseUtilities0">
+		<a id="a" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities0" aria-expanded="true" aria-controls="collapseUtilities0">
 			<i class="fas fa-fw fa-address-card"></i>
 			<span>會員中心</span>
 		</a>	  
@@ -37,13 +37,13 @@
 		</div>		  
 		</li>	  
 		<?php } ?>
-		<li id="bb" class="nav-item" >
-		<a class="nav-link " href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-			<i class="fas fa-fw fa-coffee"></i>
-			<span>商圈管理</span>
-		</a>	  
-		<div id="collapseUtilities" class="collapse show" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-			<div class="bg-white py-2 collapse-inner rounded">
+		<li id="bb" class="nav-item">
+        <a id="b" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+          <i class="fas fa-fw fa-coffee"></i>
+          <span>商圈管理</span>
+        </a>	  
+		<div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+		  <div class="bg-white py-2 collapse-inner rounded">
 			<a class="collapse-item" id="storephp" href="store.php">店家設定</a>
 			<a class="collapse-item" id="storememberphp" href="storemember.php">店家會員</a>
 			<a class="collapse-item" id="pushphp" href="push.php">推播訊息</a>
@@ -52,12 +52,14 @@
 			<a class="collapse-item" id="bonusphp" href="bonus.php">分潤設定</a>
 			<?php } ?>
 			<a class="collapse-item" id="discountphp" href="discount.php">獨家優惠(推薦碼)</a>
-			</div>
+			<a class="collapse-item" id="hairservicephp" style="display:none;" href="hairservice.php">服務項目管理</a>
+			<a class="collapse-item" id="hairstylistphp" style="display:none;" href="hairstylist.php">員工資料管理</a>
+		  </div>
 		</div>
-		</li>
+      </li>
 		<?php if ($_SESSION['authority']!="4"){  ?>
 		<li id="cc" class="nav-item">
-		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities1" aria-expanded="true" aria-controls="collapseUtilities1">
+		<a id="c" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities1" aria-expanded="true" aria-controls="collapseUtilities1">
 			<i class="fas fa-fw fa-cart-plus"></i>
 			<span>商品維護</span>
 		</a>	  
@@ -65,12 +67,13 @@
 			<div class="bg-white py-2 collapse-inner rounded">
 			<a class="collapse-item" id="producttypephp" href="producttype.php">商品分類</a>
 			<a class="collapse-item" id="productphp" href="product.php">商品維護</a>
+			<a class="collapse-item" id="ecorderphp" href="ecorder.php">商城訂單管理</a>
 			</div>
 		</div>			  
 		</li>
 		<?php } ?>
 		<li id="dd" class="nav-item">
-		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2" aria-expanded="true" aria-controls="collapseUtilities2">
+		<a id="d" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2" aria-expanded="true" aria-controls="collapseUtilities2">
 			<i class="fas fa-fw fa-shopping-bag"></i>
 			<span>訂單管理</span>
 		</a>	  
@@ -82,13 +85,25 @@
 		</div>			  
 		</li>
 		<?php if ($_SESSION['authority']!="4"){  ?>
-		<li id="ee" class="nav-item">
-		<a class="nav-link" href="coupon.php">
+		<!-- <li id="ee" class="nav-item">
+		<a id="e" class="nav-link collapsed" href="coupon.php">
 			<i class="fas fa-fw fa-chart-area"></i>
 			<span>行銷活動管理</span></a>
-		</li>	  
+		</li>	   -->
+		<li id="ee" class="nav-item">
+		<a id="e" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities5" aria-expanded="true" aria-controls="collapseUtilities5">
+			<i class="fas fa-fw fa-chart-area"></i>
+			<span>行銷活動管理</span>
+		</a>	  
+		<div id="collapseUtilities5" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+			<div class="bg-white py-2 collapse-inner rounded">
+			<a class="collapse-item" id="couponphp" href="coupon.php">優惠券管理</a>
+			<a class="collapse-item" id="arlistphp" href="arlist.php">AR 點位設定</a>
+			</div>
+		</div>		  
+		</li>
 		<li id="ff" class="nav-item">
-		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities3" aria-expanded="true" aria-controls="collapseUtilities3">
+		<a id="f" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities3" aria-expanded="true" aria-controls="collapseUtilities3">
 			<i class="fas fa-fw fa-info"></i>
 			<span>客服中心</span>
 		</a>	  
@@ -100,7 +115,7 @@
 		</div>		  
 		</li>
 		<li id="gg" class="nav-item">
-		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities4" aria-expanded="true" aria-controls="collapseUtilities4">
+		<a id="g" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities4" aria-expanded="true" aria-controls="collapseUtilities4">
 			<i class="fas fa-fw fa-folder-open"></i>
 			<span>訊息中心</span>
 		</a>	  
@@ -114,7 +129,7 @@
 		<?php } ?>
 		<!-- Nav Item - Tables -->
 		<?php if ($_SESSION['authority']=="1"){  ?>
-		<li class="nav-item">
+		<li id="ii" class="nav-item">
 		<a class="nav-link" href="sysuser.php">
 			<i class="fas fa-fw fa-user"></i>
 			<span>系統管理</span></a>

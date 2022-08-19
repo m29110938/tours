@@ -36,10 +36,13 @@
 	// $year = 2024;
 	// $year1 = $year-1;
 	$today = date("m");
-
-	$sdate = date("Y-m-01");
-	// echo $sdate."<br>";
+	$sdate = date("Y-m-01 00:00:00");
 	$edate = date('Y-m-t 23:59:59');
+	
+	// $today = "09";
+	// $sdate = "2022-10-01 00:00:00";
+	// $edate = "2022-10-31 23:59:59";
+
 	// echo $edate."<br>";
 	// echo $today."<br>";
 	// $year = date("Y");
@@ -48,7 +51,7 @@
 
 	// 判斷當月生日的會員
 	$sql = "SELECT * FROM `member`  ";
-	$sql = $sql." WHERE member_birthday IS not null and member_birthday != '0000-00-00' and member_sid = 0 and EXTRACT(month FROM member_birthday) = EXTRACT(month FROM NOW()) and member_trash = 0 ";
+	$sql = $sql." WHERE member_birthday IS not null and member_birthday != '0000-00-00' and member_sid = 0 and EXTRACT(month FROM member_birthday) = EXTRACT(month FROM '".$sdate."') and member_trash = 0 ";
 	// echo $sql.'</br>';
 	
 	if ($result = mysqli_query($link, $sql)){
@@ -69,7 +72,7 @@
 				// echo $member_name."<br>";
 
 				$sql2 = "SELECT * FROM `coupon`  ";
-				$sql2 = $sql2." WHERE coupon_type in (2,5) and coupon_storeid > 0 and coupon_number = -9999 and coupon_status = 1 and coupon_trash = 0 and DATE(coupon_issue_startdate) <= DATE(NOW()) and DATE(coupon_issue_enddate) >= DATE(NOW()) ";
+				$sql2 = $sql2." WHERE coupon_type in (2,5) and coupon_storeid > 0 and coupon_number = -9999 and coupon_status = 1 and coupon_trash = 0 and DATE(coupon_issue_startdate) <= DATE('".$sdate."') and DATE(coupon_issue_enddate) >= DATE('".$sdate."') ";
 				if ($result2 = mysqli_query($link, $sql2)) {
 					if (mysqli_num_rows($result2) > 0) {
 						while ($row2 = mysqli_fetch_array($result2)) {
@@ -132,7 +135,7 @@
 							$sql3=$sql3." ($mid,'$coupon_no','$cid','$coupon_id' ,'$coupon_name', '$coupon_type', '$coupon_description', '$sdate', '$edate', '$coupon_status', '$coupon_rule', '$coupon_discount', '$discount_amount', '$coupon_storeid', '$coupon_for', '' )";
 							// echo $sql3;
 							mysqli_query($link,$sql3) or die(mysqli_error($sql3));
-
+							// echo "成功";
 							// $sql4="UPDATE coupon SET coupon_number=$coupon_number_1 where coupon_id = '".$coupon_id."' ";
 							// echo $sql4;
 							// mysqli_query($link,$sql4) or die(mysqli_error($sql4));

@@ -1,4 +1,10 @@
 <?php
+// set_time_limit(0);
+// //設定PHP最大單執行緒的獨立記憶體使用量
+// ini_set('memory_limit','4096M');
+// //程式超時設定設為不限時
+// ini_set('max_execution_time ','0');
+
 session_start();
 if ($_SESSION['accname']==""){
 	header("Location: logout.php"); 
@@ -93,6 +99,10 @@ if ($_SESSION['authority']=="4"){
 
         <!-- End of Topbar -->
 		<?php
+			$pagenum = isset($_GET['pagenum']) ? $_GET['pagenum'] : '0';
+			$j = 8000;
+			$pagenum = $pagenum*$j;
+			// echo $pagenum;
 			$act = isset($_POST['act']) ? $_POST['act'] : '';
 
 			$host = 'localhost';
@@ -305,7 +315,7 @@ if ($_SESSION['authority']=="4"){
 					$sql = $sql." inner join ( select aid,shopping_area from shopping_area) d on d.aid = c.shopping_area ";
 					$sql = $sql." where a.mycoupon_trash=0 ";
 
-					if ($staus != "") {	
+					if ($staus != "") {
 						$sql = $sql." and a.using_flag = ".$staus."";
 					}
 					if ($coupondiscount != "") {	
@@ -335,7 +345,11 @@ if ($_SESSION['authority']=="4"){
 					if ($EDate != "") {	
 						$sql = $sql." and a.using_date <= '".$EDate." 23:59:59'";
 					}			
+
 					$sql = $sql." order by a.coupon_no ";
+
+					$datanum = mysqli_num_rows(mysqli_query($link, $sql));
+					$sql = $sql." limit ".$pagenum.",".$j." ";
 					// echo $sql;
 					//exit;
 					$idx = 0;
@@ -426,11 +440,20 @@ if ($_SESSION['authority']=="4"){
 				  </div>
 					<?php }else{ echo "沒有符合條件的資料!";}} ?>
 				</div>
+<form action="mycoupon.php" method="get">
+每頁顯示<?=$j?>筆資料:<br>
+<?php
+for($i=0;$i<($datanum/$j);$i++){
+?>
+<button name="pagenum" name="pagenum" type="submit" value="<?=$i?>"><?=$i+1?></button>
+<?php
+}
+?>
+</form>
 			  </div>
 
             </div>
           </div>
-
         </div>
         <!-- /.container-fluid -->
 

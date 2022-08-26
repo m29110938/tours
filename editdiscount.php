@@ -404,6 +404,7 @@ if (($_SESSION['authority']=="3")){
 		// console.log("<?=$coupon_type?>");
 		if (document.getElementById("coupon_type").value == "2") {
 			// console.log("--");
+			var todayDate = new Date().toISOString().slice(0, 7);
 			document.getElementById("coupon_number").style.display="none";
 			document.getElementById("coupon_startdate").value="";
 			document.getElementById("coupon_startdate").disabled="disabled";
@@ -411,10 +412,12 @@ if (($_SESSION['authority']=="3")){
 			document.getElementById("coupon_enddate").disabled="disabled";
 			document.getElementById("coupon_issue_startdate").type="month";
 			document.getElementById("coupon_issue_startdate").value="<?=substr($coupon_issue_startdate,0,7)?>";
+			document.getElementById("coupon_issue_startdate").min=todayDate;
 			document.getElementById("coupon_issue_enddate").type="month";
 			document.getElementById("coupon_issue_enddate").value="<?=substr($coupon_issue_enddate,0,7)?>";
 		}else{
 			// console.log("11");
+			var todayDate = new Date().toISOString().slice(0, 10);
 			document.getElementById("coupon_number").style.display="block";
 			document.getElementById("coupon_startdate").value="<?=substr($coupon_startdate,0,10)?>";
 			document.getElementById("coupon_startdate").disabled="";
@@ -422,6 +425,7 @@ if (($_SESSION['authority']=="3")){
 			document.getElementById("coupon_enddate").disabled="";
 			document.getElementById("coupon_issue_startdate").type="date";
 			document.getElementById("coupon_issue_startdate").value="<?=substr($coupon_issue_startdate,0,10)?>";
+			document.getElementById("coupon_issue_startdate").min=todayDate;
 			document.getElementById("coupon_issue_enddate").type="date";
 			document.getElementById("coupon_issue_enddate").value="<?=substr($coupon_issue_enddate,0,10)?>";
 		}

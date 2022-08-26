@@ -15,7 +15,6 @@ $passwd = 'tours0115';
 $database = 'toursdb';
 $link = mysqli_connect($host, $user, $passwd, $database);
 mysqli_query($link,"SET NAMES 'utf8'");
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -338,6 +337,7 @@ mysqli_query($link,"SET NAMES 'utf8'");
 	}	
 	function check_type(){
 		if (document.getElementById("coupon_type").value == "2" || document.getElementById("coupon_type").value == "5" ) {
+			var todayDate = new Date().toISOString().slice(0, 7);
 			document.getElementById("coupon_number").value="";
 			document.getElementById("coupon_number").disabled="disabled";
 			document.getElementById("coupon_startdate").value="";
@@ -345,8 +345,10 @@ mysqli_query($link,"SET NAMES 'utf8'");
 			document.getElementById("coupon_enddate").value="";
 			document.getElementById("coupon_enddate").disabled="disabled";
 			document.getElementById("coupon_issue_startdate").type="month";
+			document.getElementById("coupon_issue_startdate").min=todayDate;
 			document.getElementById("coupon_issue_enddate").type="month";
 		}else{
+			var todayDate = new Date().toISOString().slice(0, 10);
 			document.getElementById("coupon_number").disabled="";
 			document.getElementById("coupon_startdate").value="";
 			document.getElementById("coupon_startdate").disabled="";
@@ -354,6 +356,7 @@ mysqli_query($link,"SET NAMES 'utf8'");
 			document.getElementById("coupon_enddate").disabled="";
 			document.getElementById("coupon_issue_startdate").type="date";
 			document.getElementById("coupon_issue_startdate").value="";
+			document.getElementById("coupon_issue_startdate").min=todayDate;
 			document.getElementById("coupon_issue_enddate").type="date";
 			document.getElementById("coupon_issue_enddate").value="";
 		}

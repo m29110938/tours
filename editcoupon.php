@@ -507,7 +507,7 @@ if (($_SESSION['authority']=="3")||($_SESSION['authority']=="4")){
 		
 		if (!checkString(document.all.coupon_issue_startdate,"請輸入發放期間(起)!"))	return false;
 		if (!checkString(document.all.coupon_issue_enddate,"請輸入發放期間(迄)!"))	return false;
-		if (document.all.coupon_issue_enddate.value <= document.all.coupon_issue_startdate.value) {
+		if (document.all.coupon_issue_enddate.value < document.all.coupon_issue_startdate.value) {
 			alert("發放期間(迄)小於等於發放期間(起)!");
 			document.all.coupon_enddate.focus();
 			return false;

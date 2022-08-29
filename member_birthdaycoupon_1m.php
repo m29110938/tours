@@ -13,7 +13,8 @@
 		$curl = curl_init();
 		curl_setopt_array($curl, array(
 			// CURLOPT_URL => 'https://ddotapp.com.tw/tours/api/push_tomember.php',
-			CURLOPT_URL => 'http://localhost/tours/api/push_tomember.php',
+			CURLOPT_URL => 'https://tripspottest.jotangi.net/tours/api/push_tomember.php',
+			// CURLOPT_URL => 'http://localhost/tours/api/push_tomember.php',
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_ENCODING => '',
 			CURLOPT_MAXREDIRS => 10,

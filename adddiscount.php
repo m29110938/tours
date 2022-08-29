@@ -312,8 +312,9 @@ mysqli_query($link,"SET NAMES 'utf8'");
 			document.getElementById("coupon_enddate").value="";
 			document.getElementById("coupon_enddate").disabled="disabled";
 			document.getElementById("coupon_issue_startdate").type="month";
-			document.getElementById("coupon_issue_startdate").min=todayDate;
 			document.getElementById("coupon_issue_enddate").type="month";
+			document.getElementById("coupon_issue_startdate").min=todayDate;
+			document.getElementById("coupon_issue_enddate").min=todayDate;
 		}else{
 			var todayDate = new Date().toISOString().slice(0, 10);
 			document.getElementById("coupon_number").disabled="";
@@ -323,9 +324,10 @@ mysqli_query($link,"SET NAMES 'utf8'");
 			document.getElementById("coupon_enddate").disabled="";
 			document.getElementById("coupon_issue_startdate").type="date";
 			document.getElementById("coupon_issue_startdate").value="";
-			document.getElementById("coupon_issue_startdate").min=todayDate;
 			document.getElementById("coupon_issue_enddate").type="date";
 			document.getElementById("coupon_issue_enddate").value="";
+			document.getElementById("coupon_issue_startdate").min=todayDate;
+			document.getElementById("coupon_issue_enddate").min=todayDate;
 		}
 	}
 	function Save_User(){

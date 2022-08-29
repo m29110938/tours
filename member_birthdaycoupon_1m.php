@@ -12,6 +12,7 @@
 		$push_body = str_replace($vowels,"\n",$push_body);
 		$curl = curl_init();
 		curl_setopt_array($curl, array(
+			// CURLOPT_URL => 'https://ddotapp.com.tw/tours/api/push_tomember.php',
 			CURLOPT_URL => 'http://localhost/tours/api/push_tomember.php',
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_ENCODING => '',
@@ -47,7 +48,6 @@
 	// echo $today."<br>";
 	// $year = date("Y");
 	// $year1 = date("Y")-1;
-
 
 	// 判斷當月生日的會員
 	$sql = "SELECT * FROM `member`  ";

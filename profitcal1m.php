@@ -71,7 +71,8 @@ function insert_profitlist($conn,$sid,$sname,$urate,$sdate,$edate,$profit_month)
 				$total_amountJ = $total_amountG + $total_amountI;				
 				//insert profit_list
 				$sql="INSERT INTO `profit` (store_id,profit_month,start_date,end_date,urate, total_amount,total_order, total_amountD,total_amountG,total_amountI,total_amountJ,total_amountK,profit_pdf,billing_date) VALUES ";
-				$sql=$sql." ($store_id,'$profit_month','$sdate','$edate',$urate,$total_amount,$total_order,$total_amountD,$total_amountG,$total_amountI,$total_amountJ,$total_amountK,'uploads/profit.pdf',NOW());";
+				// $sql=$sql." ($store_id,'$profit_month','$sdate','$edate',$urate,$total_amount,$total_order,$total_amountD,$total_amountG,$total_amountI,$total_amountJ,$total_amountK,'uploads/profit.pdf',NOW());";
+				$sql=$sql." ($store_id,'$profit_month','$sdate','$edate',$urate,$total_amount,$total_order,$total_amountD,$total_amountG,$total_amountI,$total_amountJ,$total_amountK,'profitreport.php?sid=".$sid."&sdate=".$sdate."&edate=".$edate."&urate=".$urate."',NOW());";
 				//echo $sql;
 				mysqli_query($conn,$sql) or die(mysqli_error($conn));
 				

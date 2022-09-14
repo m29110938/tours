@@ -4,12 +4,15 @@ ini_set('date.timezone','Asia/Taipei');
 $date2 = new DateTime(date("Y-m-d"));
 // $date2->modify('-4 day');
 //echo $date2->format('Y-m-d') . "\n";
+
+// print_r($date2);
 $week = $date2->format("w");
 //echo "Weeknummer: $week";
 
 if ( $week != 1){
 	exit;
 }
+
 $date1 = $date2->modify('-1 day');
 $edate = $date2->format('Y-m-d');
 
@@ -22,9 +25,9 @@ $profit_month = $sdate;
 //echo $profit_month. " ";	;
 //exit;
 
-//$sdate = "2022-01-03";
-//$edate = "2022-01-09";
-//$profit_month = "2022-01-03";
+// $sdate = "2022-01-03";
+// $edate = "2022-01-09";
+// $profit_month = "2022-01-03";
 
 function insert_profitlist($conn,$sid,$sname,$urate,$sdate,$edate,$profit_month){
 	try {
@@ -34,7 +37,7 @@ function insert_profitlist($conn,$sid,$sname,$urate,$sdate,$edate,$profit_month)
 		$sql3 = $sql3." inner join ( select store_id,bid from bonus_store) as e on a.store_id = e.store_id  ";
     	$sql3 = $sql3." inner join ( select sys_rate1,sys_rate2,bid from bonus_setting) as f on e.bid = f.bid  ";
 		$sql3 = $sql3." where a.order_date > '".$sdate." 00:00:00' and a.order_date < '".$edate." 23:59:59' and a.store_id=$sid and a.order_status=1 and a.pay_status=1";
-		//echo $sql3;
+		// echo $sql3."<br>";
 		if ($result2 = mysqli_query($conn, $sql3)){
 			if (mysqli_num_rows($result2) > 0){
 				$total_amountD = 0;
@@ -70,8 +73,9 @@ function insert_profitlist($conn,$sid,$sname,$urate,$sdate,$edate,$profit_month)
 				$total_amountJ = $total_amountG + $total_amountI;
 				//insert profit_list
 				$sql="INSERT INTO `profit` (store_id,profit_month,start_date,end_date,urate,total_amount,total_order, total_amountD,total_amountG,total_amountI,total_amountJ,total_amountK,profit_pdf,billing_date) VALUES ";
-				$sql=$sql." ($store_id,'$profit_month','$sdate','$edate',$urate,$total_amount,$total_order,$total_amountD,$total_amountG,$total_amountI,$total_amountJ,$total_amountK,'uploads/profit.pdf',NOW());";
-				// echo $sql;
+				// $sql=$sql." ($store_id,'$profit_month','$sdate','$edate',$urate,$total_amount,$total_order,$total_amountD,$total_amountG,$total_amountI,$total_amountJ,$total_amountK,'uploads/profit.pdf',NOW());";
+				$sql=$sql." ($store_id,'$profit_month','$sdate','$edate',$urate,$total_amount,$total_order,$total_amountD,$total_amountG,$total_amountI,$total_amountJ,$total_amountK,'profitreport.php?sid=".$sid."&sdate=".$sdate."&edate=".$edate."&urate=".$urate."',NOW());";
+				echo $sql;
 				mysqli_query($conn,$sql) or die(mysqli_error($conn));
 				
 			}else {
@@ -98,7 +102,7 @@ function insert_profitlist($conn,$sid,$sname,$urate,$sdate,$edate,$profit_month)
 	$sql = $sql." inner JOIN (select * FROM bonus_setting) as b on a.bid=b.bid ";
 	$sql = $sql." inner JOIN (select * FROM store) as c on a.store_id=c.sid ";
     $sql = $sql." where profit_period=1 and b.bonus_trash=0 and c.store_trash=0 ";
-	echo $sql."<br/>";
+	// echo $sql."<br/>";
 	//exit;
 	if ($result = mysqli_query($link, $sql)){
 		if (mysqli_num_rows($result) > 0){

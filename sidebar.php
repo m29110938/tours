@@ -50,6 +50,7 @@
 			<?php if ($_SESSION['authority']!="4"){  ?>
 			<a class="collapse-item" id="storetypephp" href="storetype.php">類別設定</a>
 			<a class="collapse-item" id="bonusphp" href="bonus.php">分潤設定</a>
+			<a class="collapse-item" id="attractionphp" href="attraction.php">景點設定</a>
 			<?php } ?>
 			<a class="collapse-item" id="discountphp" href="discount.php">獨家優惠(推薦碼)</a>
 			<a class="collapse-item" id="hairservicephp" style="display:none;" href="hairservice.php">服務項目管理</a>

@@ -51,7 +51,7 @@ $loc_lng2 = isset($_POST['loc_lng']) ? $_POST['loc_lng'] : 0;
 						//INSERT INTO `store` (`sid`, `store_id`, `store_type`, `store_name`, `shopping_area`, `store_phone`, `store_address`, `store_website`, `store_descript`, `store_picture`, `store_longitude`, `store_latitude`, `store_status`, `store_created_at`, `store_updated_at`, `store_created_by`, `store_updated_by`, `store_trash`) VALUES
 					
 						//$sql2 = "SELECT `sid`, `store_id`, `store_type`, `store_name`, `shopping_area`, `store_phone`, `store_address`, `store_website`, `store_descript`, `store_picture`, `store_longitude`, `store_latitude`, `store_status` FROM store where store_trash=0 ";
-						$sql2 = "SELECT a.sid, a.store_id, a.store_type, a.store_name, a.shopping_area, a.store_phone, a.store_address, a.store_website, a.store_facebook,a.store_news,a.store_picture, a.store_latitude, a.store_longitude, a.store_status, a.store_opentime FROM attraction as a";
+						$sql2 = "SELECT a.sid, a.store_id, a.store_type, a.store_name, a.shopping_area, a.store_phone, a.store_address, a.store_website, a.store_facebook,a.store_news,a.store_picture, a.store_latitude, a.store_longitude, a.store_status, a.store_opentime, a.store_descript FROM attraction as a";
 						$sql2 = $sql2." where a.store_trash=0 ";
 						if ($shopping_area != "") {	
 							$sql2 = $sql2." and a.shopping_area=".$shopping_area."";
@@ -86,6 +86,7 @@ $loc_lng2 = isset($_POST['loc_lng']) ? $_POST['loc_lng'] : 0;
 									$c13= $row2['store_longitude'];
 									$c14= $row2['store_status'];
 									$c15= $row2['store_opentime'];
+									$c16= $row2['store_descript'];
 
 									try {
 										if (($mallLongitude != 0 )||($mallLlatitude !=0 )) {
@@ -112,7 +113,7 @@ $loc_lng2 = isset($_POST['loc_lng']) ? $_POST['loc_lng'] : 0;
 									} catch (Exception $e) {
 										$distance = 0;						
 									}							
-									$rows[] = array("0"=> $c1 , "sid"=> $c1 , "1"=> $c2,"store_id"=> $c2, "2"=> $c3, "store_type"=> $c3,"3"=> $c4,"store_name"=> $c4, "4"=> $c5,"shopping_area"=> $c5, "5"=> $c6,"store_phone"=> $c6,"6"=> $c7,"store_address"=> $c7,"7"=> $c8,"store_website"=> $c8,"8"=> $c9,"store_facebook"=> $c9,"9"=> $c10,"store_news"=> $c10,"10"=> $c11,"store_picture"=> $c11,"11"=> $c12,"store_latitude"=> $c12,"12"=> $c13,"store_longitude"=> $c13,"13"=> $c14,"store_status"=> $c14,"14"=> $distance,"distance"=> $distance,"15"=> $c15,"store_opentime"=> $c15);
+									$rows[] = array("0"=> $c1 , "sid"=> $c1 , "1"=> $c2,"store_id"=> $c2, "2"=> $c3, "store_type"=> $c3,"3"=> $c4,"store_name"=> $c4, "4"=> $c5,"shopping_area"=> $c5, "5"=> $c6,"store_phone"=> $c6,"6"=> $c7,"store_address"=> $c7,"7"=> $c8,"store_website"=> $c8,"8"=> $c9,"store_facebook"=> $c9,"9"=> $c10,"store_news"=> $c10,"10"=> $c11,"store_picture"=> $c11,"11"=> $c12,"store_latitude"=> $c12,"12"=> $c13,"store_longitude"=> $c13,"13"=> $c14,"store_status"=> $c14,"14"=> $distance,"distance"=> $distance,"15"=> $c15,"store_opentime"=> $c15,"16"=> $c16,"store_discript"=> $c16);
 									//$rows[] = array("0"=> $c1 , "sid"=> $c1 , "1"=> $c2,"store_id"=> $c2, "2"=> $c3, "store_type"=> $c3,"3"=> $c4,"store_name"=> $c4, "4"=> $distance,"distance"=> $distance);
 
 									//`sid`, `store_id`, `store_type`, `store_name`, `shopping_area`, `store_phone`, `store_address`, `store_website`, `store_facebook`,`store_news`,`store_picture`, `store_latitude`, `store_longitude`, `store_status` 

@@ -56,9 +56,10 @@ $bonus_enddate = isset($_POST['bonus_enddate']) ? $_POST['bonus_enddate'] : '';
 						if ($bonus_enddate != "") {	
 							$sql2 = $sql2." and a.bonus_date <= '".$bonus_enddate."'";
 						}
+						$sql2 = $sql2." GROUP BY a.bid";
 						$sql2 = $sql2." order by a.bid,a.member_id,a.bonus_date desc";
 						//$data = "";
-						//echo $sql2;
+						// echo $sql2;
 						if ($result2 = mysqli_query($link, $sql2)){
 							if (mysqli_num_rows($result2) > 0){
 								$rows = array();

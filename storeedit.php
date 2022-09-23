@@ -175,7 +175,7 @@
 		
 			
 		// once saved, redirect back to the view page
-		// echo "<script>window.location.href='store.php?act=Qry';</script>";
+		echo "<script>window.location.href='store.php?act=Qry';</script>";
 		// header("Location: store.php?act=Qry");
 
 		mysqli_close($link);

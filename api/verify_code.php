@@ -28,7 +28,7 @@ $mobile_no = isset($_POST['mobile_no']) ? $_POST['mobile_no'] : '';
 			//curl_setopt($ch2,CURLOPT_POSTFIELDS, $fields_string2);
 			//curl_setopt($ch2,CURLOPT_RETURNTRANSFER, true); 
 			//execute post
-			$result2 = curl_exec($ch2);
+			// $result2 = curl_exec($ch2);
 			//echo $result2;
 //-----------------------------------------------------------------------------------------------------------------------------------
 
@@ -37,7 +37,14 @@ $mobile_no = isset($_POST['mobile_no']) ? $_POST['mobile_no'] : '';
 				$cmd = "curl -X POST 'http://message.ttinet.com.tw/ensg/3lma236_online' --data 'id=3LMA236&pass=43bHJ2dA&pin=018008508556&telno=".$mobile_no."&cont=".$smsdata."'";
 				//echo $cmd;
 				$result = shell_exec($cmd);
-				//echo $result; 
+				
+				$sql3 = "delete from sendmsg_response where mobile_no='".$mobile_no."'";
+				mysqli_query($link,$sql3) or die(mysqli_error($link));
+				
+				$sql3 = "insert into sendmsg_response(mobile_no,response) value ('".$mobile_no."','".$result."')";
+				mysqli_query($link,$sql3) or die(mysqli_error($link));
+
+				// echo $result; 
 				try {
 					//$sql2 = "update member set reset_code='".$user_code."' ,member_updated_at=NOW() where member_trash=0 and mid=".$mid."";
 

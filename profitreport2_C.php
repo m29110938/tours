@@ -229,14 +229,11 @@ rt
  <tr height=30 style='mso-height-source:userset;height:22.2pt'>
   <td height=30 style='height:22.2pt'></td>
   <td rowspan=2 class=xl83 width=79 style='border-bottom:1.5pt solid black;
-  width:59pt'>編號
-    </td>
-  <td rowspan=2 class=xl83 width=79 style='border-bottom:1.5pt solid black;
   width:59pt'>交易<br>
     日期</td>
-  <!-- <td rowspan=2 class=xl83 width=105 style='border-bottom:1.5pt solid black;
+  <td rowspan=2 class=xl83 width=105 style='border-bottom:1.5pt solid black;
   width:70pt'>訂單<br>
-    編號</td> -->
+    編號</td>
   <td rowspan=2 class=xl83 width=86 style='border-bottom:1.5pt solid black;
   width:64pt'>會員<br>
     姓名</td>
@@ -256,7 +253,6 @@ rt
   width:81pt'>實際支付<br>
     金額<br>
     (D=A-B-C)</td>
-  
   <td></td>
   <td colspan=3 class=xl84>應付會員紅利費用</td>
   <td class=xl65></td>
@@ -293,7 +289,6 @@ rt
   <td></td>
  </tr>
  <?php
- $id = 0;
  	while($row2 = mysqli_fetch_array($result2)){
 		$order_no = $row2['order_no'];
 		$order_date = date('Y-m-d', strtotime($row2['order_date']));
@@ -329,10 +324,9 @@ rt
 ?>
  <tr height=22 style='height:16.8pt'>
   <td height=22 style='height:16.8pt'></td>
-  <td class=xl90 style='border-top:none'><?php echo $id;?></td>
   <td class=xl90 style='border-top:none'><?php echo $order_date;?></td>
-  <!-- <td class=xl91 style='border-top:none'><?php echo $order_no;?></td> -->
-  <td class=xl91 style='text-align: center;border-top:none'><?php echo $member_name;?></td>
+  <td class=xl91 style='border-top:none'><?php echo $order_no;?></td>
+  <td class=xl91 style='border-top:none'><?php echo $member_name;?></td>
   <td class=xl91 align=right style='border-top:none'><?php echo number_format($order_amount);?></td>
   <td class=xl91 align=right style='border-top:none'><?php echo number_format($discount_amount);?></td>
   <td class=xl92 align=right style='border-top:none'><?php echo number_format($bonus_point);?></td>
@@ -350,7 +344,6 @@ rt
   <td class=xl92 align=right style='border-top:none'><?php echo number_format($bonus_point);?></td>
  </tr>
  <?php 
- $id += 1;
  	}
 	$total_amountH = $total_amountI;
 	$total_amountI = floor($total_amountI);
@@ -2471,41 +2464,35 @@ lqoBAAAA
 	  
 	  html2canvas(document.body, {
               onrendered:function(canvas) {
-                  console.log(canvas);
                   var contentWidth = canvas.width;
                   var contentHeight = canvas.height;
                   //一页pdf显示html页面生成的canvas高度;
-                  // var pageHeight = contentWidth / 592.28 * 841.89;
-				          var pageHeight = contentWidth /  841.89 * 592.28;
+                  var pageHeight = contentWidth / 592.28 * 841.89;
+				  //var pageHeight = contentWidth /  841.89 * 592.28;
                   //未生成pdf的html页面高度
                   var leftHeight = contentHeight;
                   //pdf页面偏移
                   var position = 0;
                   //a4纸的尺寸[595.28,841.89]，html页面生成的canvas在pdf中图片的宽高
-                  // var imgWidth = 595.28;
-                  // var imgHeight = 592.28/contentWidth * contentHeight;
-                  var imgWidth = 841.89;
-                  // var imgHeight = 841.89/contentWidth * contentHeight;
-                  var imgHeight = 1500;
-                  // console.log(imgHeight)
+                  var imgWidth = 595.28;
+                  var imgHeight = 592.28/contentWidth * contentHeight;
+                  //var imgWidth = 841.89;
+                  //var imgHeight = 841.89/contentWidth * contentHeight;
+
                   var pageData = canvas.toDataURL('image/jpeg', 1.0);
 
-                  // var pdf = new jsPDF('', 'pt', 'a4');
-                  var pdf = new jsPDF('landscape', 'pt', 'a4');
+                  var pdf = new jsPDF('', 'pt', 'a4');
 
                   //有两个高度需要区分，一个是html页面的实际高度，和生成pdf的页面高度(841.89)
                   //当内容未超过pdf一页显示的范围，无需分页
-                  console.log(leftHeight);
-                  console.log(pageHeight);
                   if (leftHeight < pageHeight) {
                       pdf.addImage(pageData, 'JPEG', 0, 0, imgWidth, imgHeight );
                   } else {
                       while(leftHeight > 0) {
-                          // console.log(leftHeight);
                           pdf.addImage(pageData, 'JPEG', 0, position, imgWidth, imgHeight)
                           leftHeight -= pageHeight;
-                          // position -= 841.89;
-                          position -= 595.28;
+                          position -= 841.89;
+                          //position -= 592.28;
                           //避免添加空白页
                           if(leftHeight > 0) {
                               pdf.addPage();
@@ -2518,7 +2505,7 @@ lqoBAAAA
           });
 		 downPdf.style.display="block";
 		 document.getElementById("backprofit").style.display="block";
-	  }		  
+	}		  
 	function Goprofit()
 	{
 		self.location.replace("profit.php");

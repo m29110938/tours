@@ -113,7 +113,7 @@ $loc_lng2 = isset($_POST['loc_lng']) ? $_POST['loc_lng'] : 0;
 									} catch (Exception $e) {
 										$distance = 0;						
 									}							
-									$rows[] = array("0"=> $c1 , "sid"=> $c1 , "1"=> $c2,"store_id"=> $c2, "2"=> $c3, "store_type"=> $c3,"3"=> $c4,"store_name"=> $c4, "4"=> $c5,"shopping_area"=> $c5, "5"=> $c6,"store_phone"=> $c6,"6"=> $c7,"store_address"=> $c7,"7"=> $c8,"store_website"=> $c8,"8"=> $c9,"store_facebook"=> $c9,"9"=> $c10,"store_news"=> $c10,"10"=> $c11,"store_picture"=> $c11,"11"=> $c12,"store_latitude"=> $c12,"12"=> $c13,"store_longitude"=> $c13,"13"=> $c14,"store_status"=> $c14,"14"=> $distance,"distance"=> $distance,"15"=> $c15,"store_opentime"=> $c15,"16"=> $c16,"store_discript"=> $c16);
+									$rows[] = array("0"=> $c1 , "sid"=> $c1 , "1"=> $c2,"store_id"=> $c2, "2"=> $c3, "store_type"=> $c3,"3"=> $c4,"store_name"=> $c4, "4"=> $c5,"shopping_area"=> $c5, "5"=> $c6,"store_phone"=> $c6,"6"=> $c7,"store_address"=> $c7,"7"=> $c8,"store_website"=> $c8,"8"=> $c9,"store_facebook"=> $c9,"9"=> $c10,"store_news"=> $c10,"10"=> $c11,"store_picture"=> $c11,"11"=> $c12,"store_latitude"=> $c12,"12"=> $c13,"store_longitude"=> $c13,"13"=> $c14,"store_status"=> $c14,"14"=> $distance,"distance"=> $distance,"15"=> $c15,"store_opentime"=> $c15,"16"=> $c16,"store_descript"=> $c16);
 									//$rows[] = array("0"=> $c1 , "sid"=> $c1 , "1"=> $c2,"store_id"=> $c2, "2"=> $c3, "store_type"=> $c3,"3"=> $c4,"store_name"=> $c4, "4"=> $distance,"distance"=> $distance);
 
 									//`sid`, `store_id`, `store_type`, `store_name`, `shopping_area`, `store_phone`, `store_address`, `store_website`, `store_facebook`,`store_news`,`store_picture`, `store_latitude`, `store_longitude`, `store_status` 

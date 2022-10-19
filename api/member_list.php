@@ -59,6 +59,25 @@ $order_enddate = isset($_POST['order_enddate']) ? $_POST['order_enddate'] : '';
 							if (mysqli_num_rows($result2) > 0){
 								$rows = array();
 								while($row2 = mysqli_fetch_array($result2)){
+
+
+									$member_name = $row2['member_name'];
+									// $member_namestr1 = strstr($member_name,0,3);
+									$member_namelen = mb_strlen($member_name,`utf-8`);
+									if($member_namelen <= 2){
+										$member_namestr1 = mb_substr($member_name,0,1,`utf-8`);
+										$member_namestr2 = mb_substr($member_name,2,`utf-8`);
+										$member_name = $member_namestr1."O".$member_namestr2;
+									}
+									else{
+										$member_namestr1 = mb_substr($member_name,0,1,`utf-8`);
+										$member_namestr2 = mb_substr($member_name,3,`utf-8`);
+										$member_name = $member_namestr1."OO".$member_namestr2;
+									}
+									// $row2['3'] = $member_name;
+									// echo $member_name;
+									$row2['member_name'] = $member_name;
+
 									$rows[] = $row2;
 
 								}

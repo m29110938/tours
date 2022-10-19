@@ -170,14 +170,17 @@ rt
 
 <table border=0 cellpadding=0 cellspacing=0 width=1317 style='border-collapse:
  collapse;table-layout:fixed;width:987pt'>
- <col width=32 style='width:24pt'>
+<!-- <table border=0 cellpadding=0 cellspacing=0 width=1317 style='border-collapse:
+ collapse;table-layout:fixed;width:987pt'> -->
+ <col width=64 style='width:48pt'>
+ <col width=87 style='mso-width-source:userset;mso-width-alt:2730;width:30pt'>
  <col width=79 style='mso-width-source:userset;mso-width-alt:2816;width:59pt'>
- <col width=105 style='mso-width-source:userset;mso-width-alt:3043;width:81pt'>
+ <col width=105 style='mso-width-source:userset;mso-width-alt:3043;width:95pt'>
  <col width=82 style='mso-width-source:userset;mso-width-alt:2901;width:61pt'>
- <col width=86 style='mso-width-source:userset;mso-width-alt:3043;width:64pt'>
- <col width=77 style='mso-width-source:userset;mso-width-alt:2730;width:58pt'>
- <col width=74 style='mso-width-source:userset;mso-width-alt:2616;width:55pt'>
- <col width=86 style='mso-width-source:userset;mso-width-alt:3840;width:64pt'>
+ <col width=86 style='mso-width-source:userset;mso-width-alt:3043;width:40pt'>
+ <col width=77 style='mso-width-source:userset;mso-width-alt:2730;width:48pt'>
+ <col width=74 style='mso-width-source:userset;mso-width-alt:2616;width:45pt'>
+ <col width=86 style='mso-width-source:userset;mso-width-alt:3840;width:50pt'>
  <col width=32 style='mso-width-source:userset;mso-width-alt:1137;width:24pt'>
  <col width=64 span=2 style='width:48pt'>
  <col width=73 style='mso-width-source:userset;mso-width-alt:2588;width:55pt'>
@@ -188,23 +191,20 @@ rt
  <col width=77 style='mso-width-source:userset;mso-width-alt:2730;width:58pt'>
  <col width=26 style='mso-width-source:userset;mso-width-alt:938;width:20pt'>
  <col width=128 style='mso-width-source:userset;mso-width-alt:4551;width:96pt'>
- <col width=32 style='width:24pt'>
  <tr height=24 style='height:18.0pt'>
-  <td height=24 width=32 style='height:18.0pt;width:48pt'></td>
+  <td height=24 width=64 style='height:18.0pt;width:48pt'></td>
   <td width=79 style='width:59pt'></td>
   <td width=86 style='width:64pt'></td>
   <td width=82 style='width:61pt'></td>
   <td width=86 style='width:64pt'></td>
   <td width=77 style='width:58pt'></td>
-  <td height=24 width=32 style='height:18.0pt;width:48pt'></td>
   <td colspan=6 class=xl108 width=415 style='width:311pt'><br/>點點ddot系統<span
   style='mso-spacerun:yes'>&nbsp;&nbsp; </span>店家對帳單</td>
   <td width=27 style='width:20pt'></td>
   <td colspan=6 class=xl111 width=401 style='width:302pt'></td>
-  <td height=24 width=32 style='height:18.0pt;width:48pt'></td>
  </tr>
  <tr height=22 style='height:16.2pt'>
-  <td height=22 colspan=20 style='height:16.2pt;mso-ignore:colspan'></td>
+  <td height=22 colspan=19 style='height:16.2pt;mso-ignore:colspan'></td>
  </tr>
  <tr height=22 style='height:16.2pt'>
   <td height=22 style='height:16.2pt'></td>
@@ -212,14 +212,13 @@ rt
   <td colspan=6 class=xl112>帳務區間 <?php echo $sdate;?> 至 <?php echo $edate;?></td>
   <td></td>
   <td colspan=6 class=xl111>請款日期 : <?php echo $nowdate->format('Y-m-d');?></td>
-  <td height=22 style='height:16.2pt'></td>
  </tr>
  <tr height=22 style='height:16.2pt'>
-  <td height=22 colspan=20 style='height:16.2pt;mso-ignore:colspan'></td>
+  <td height=22 colspan=19 style='height:16.2pt;mso-ignore:colspan'></td>
  </tr>
  <tr height=75 style='mso-height-source:userset;height:56.4pt'>
   <td height=75 style='height:56.4pt'></td>
-  <td colspan=7 class=xl70>會員交易明細</td>
+  <td colspan=8 class=xl70>會員交易明細</td>
   <td></td>
   <td colspan=8 class=xl68 width=475 style='width:357pt'>本期店家應付費用<br>
     (系統開立發票)</td>
@@ -227,13 +226,21 @@ rt
   <td class=xl67 width=128 style='width:96pt'>本期店家<br>
     應收金額<br>
     (店家開立發票)</td>
-  <td height=75 style='height:56.4pt'></td>
  </tr>
  <tr height=30 style='mso-height-source:userset;height:22.2pt'>
   <td height=30 style='height:22.2pt'></td>
+  <td rowspan=2 class=xl83 width=87 style='border-bottom:1.5pt solid black;
+  width:68pt'>編號
+    </td>
   <td rowspan=2 class=xl83 width=79 style='border-bottom:1.5pt solid black;
   width:59pt'>交易<br>
     日期</td>
+  <!-- <td rowspan=2 class=xl83 width=135 style='border-bottom:1.5pt solid black;
+  width:100pt'>訂單<br>
+    編號</td>
+  <td rowspan=2 class=xl83 width=56 style='border-bottom:1.5pt solid black;
+  width:34pt'>會員<br>
+    姓名</td> -->
   <td rowspan=2 class=xl83 width=105 style='border-bottom:1.5pt solid black;
   width:70pt'>訂單<br>
     編號</td>
@@ -256,6 +263,7 @@ rt
   width:81pt'>實際支付<br>
     金額<br>
     (D=A-B-C)</td>
+  
   <td></td>
   <td colspan=3 class=xl84>應付會員紅利費用</td>
   <td class=xl65></td>
@@ -270,7 +278,6 @@ rt
   width:96pt'>應收紅利<br>
     金額<br>
     (K=C)</td>
-  <td height=30 style='height:22.2pt'></td>
  </tr>
  <tr height=66 style='mso-height-source:userset;height:49.8pt'>
   <td height=66 style='height:49.8pt'></td>
@@ -291,9 +298,9 @@ rt
     (I) 註2</td>
   <td class=xl65></td>
   <td></td>
-  <td height=66 style='height:49.8pt'></td>
  </tr>
  <?php
+ $id = 1;
  	while($row2 = mysqli_fetch_array($result2)){
 		$order_no = $row2['order_no'];
 		$order_date = date('Y-m-d', strtotime($row2['order_date']));
@@ -327,11 +334,124 @@ rt
 		$total_order = $total_order + 1;
 		$total_amount = $total_amount + $order_pay;					
 ?>
+  <?php if($id%32 == 0 and $id !=0 ){ ?>
+  <tr height=24 style='height:50.0pt'>
+  <td height=24 width=64 style='height:18.0pt;width:48pt'></td>
+  <td width=79 style='width:59pt'></td>
+  <td width=86 style='width:64pt'></td>
+  <td width=82 style='width:61pt'></td>
+  <td width=86 style='width:64pt'></td>
+  <td width=77 style='width:58pt'></td>
+  <td colspan=6 class=xl108 width=415 style='width:311pt'><br/>點點ddot系統<span
+  style='mso-spacerun:yes'>&nbsp;&nbsp; </span>店家對帳單</td>
+  <td width=27 style='width:20pt'></td>
+  <td colspan=6 class=xl111 width=401 style='width:302pt'></td>
+ </tr>
+ <tr height=22 style='height:16.2pt'>
+  <td height=22 colspan=19 style='height:16.2pt;mso-ignore:colspan'></td>
+ </tr>
+ <tr height=22 style='height:16.2pt'>
+  <td height=22 style='height:16.2pt'></td>
+  <td colspan=5 class=xl110>店家名稱 : <?php echo $store_name;?></td>
+  <td colspan=6 class=xl112>帳務區間 <?php echo $sdate;?> 至 <?php echo $edate;?></td>
+  <td></td>
+  <td colspan=6 class=xl111>請款日期 : <?php echo $nowdate->format('Y-m-d');?></td>
+ </tr>
+  <tr height=22 style='height:16.2pt'>
+  <td height=22 colspan=19 style='height:16.2pt;mso-ignore:colspan'></td>
+ </tr>
+ <tr height=75 style='mso-height-source:userset;height:56.4pt'>
+  <td height=75 style='height:56.4pt'></td>
+  <td colspan=8 class=xl70>會員交易明細</td>
+  <td></td>
+  <td colspan=8 class=xl68 width=475 style='width:357pt'>本期店家應付費用<br>
+    (系統開立發票)</td>
+  <td></td>
+  <td class=xl67 width=128 style='width:96pt'>本期店家<br>
+    應收金額<br>
+    (店家開立發票)</td>
+ </tr>
+ <tr height=30 style='mso-height-source:userset;height:22.2pt'>
+  <td height=30 style='height:22.2pt'></td>
+  <td rowspan=2 class=xl83 width=87 style='border-bottom:1.5pt solid black;
+  width:68pt'>編號
+    </td>
+  <td rowspan=2 class=xl83 width=79 style='border-bottom:1.5pt solid black;
+  width:59pt'>交易<br>
+    日期</td>
+  <!-- <td rowspan=2 class=xl83 width=115 style='border-bottom:1.5pt solid black;
+  width:100pt'>訂單<br>
+    編號</td>
+  <td rowspan=2 class=xl83 width=76 style='border-bottom:1.5pt solid black;
+  width:34pt'>會員<br>
+    姓名</td> -->
+  <td rowspan=2 class=xl83 width=105 style='border-bottom:1.5pt solid black;
+  width:70pt'>訂單<br>
+    編號</td>
+  <td rowspan=2 class=xl83 width=86 style='border-bottom:1.5pt solid black;
+  width:64pt'>會員<br>
+    姓名</td>
+  <td rowspan=2 class=xl83 width=80 style='border-bottom:1.5pt solid black;
+  width:64pt'>訂單<br>
+    金額<br>
+    (A)</td>
+  <td rowspan=2 class=xl83 width=77 style='border-bottom:1.5pt solid black;
+  width:58pt'>現金券<br>
+    折抵<br>
+    (B)</td>
+  <td rowspan=2 class=xl78 width=74 style='border-bottom:1.5pt solid black;
+  width:55pt'>紅利<br>
+    折抵<br>
+    (C)</td>
+  <td rowspan=2 class=xl85 width=85 style='border-bottom:1.5pt solid black;
+  width:81pt'>實際支付<br>
+    金額<br>
+    (D=A-B-C)</td>
+  
+  <td></td>
+  <td colspan=3 class=xl84>應付會員紅利費用</td>
+  <td class=xl65></td>
+  <td colspan=2 class=xl84>應付系統費用</td>
+  <td class=xl65></td>
+  <td rowspan=2 class=xl80 width=77 style='border-bottom:1.5pt solid black;
+  width:58pt'>應付費用<br>
+    總額<br>
+    (J=G+I)</td>
+  <td></td>
+  <td rowspan=2 class=xl78 width=128 style='border-bottom:1.5pt solid black;
+  width:96pt'>應收紅利<br>
+    金額<br>
+    (K=C)</td>
+ </tr>
+ <tr height=66 style='mso-height-source:userset;height:49.8pt'>
+  <td height=66 style='height:49.8pt'></td>
+  <td></td>
+  <td class=xl83 width=64 style='width:48pt'>紅利%<br>
+    (E)</td>
+  <td class=xl83 width=64 style='width:48pt'>紅利<br>
+    金額<br>
+    (F=D*E)</td>
+  <td class=xl82 width=73 style='width:55pt'>實際支付<br>
+    紅利金額<br>
+    (Ｇ) 註1</td>
+  <td class=xl66></td>
+  <td class=xl83 width=81 style='width:61pt'>系統費用<br>
+    (H=D*<?=$total*100?>%)</td>
+  <td class=xl82 width=64 style='width:48pt'>實際支付<br>
+    系統費用<br>
+    (I) 註2</td>
+  <td class=xl65></td>
+  <td></td>
+ </tr>  
+ <?php } ?>
  <tr height=22 style='height:16.8pt'>
   <td height=22 style='height:16.8pt'></td>
+  <td class=xl90 style='border-top:none'><?php echo $id;?></td>
   <td class=xl90 style='border-top:none'><?php echo $order_date;?></td>
-  <td class=xl91 style='border-top:none'><?php echo $order_no;?></td>
-  <td class=xl91 style='border-top:none'><?php echo $member_name;?></td>
+  <td class=xl91 style='text-align: center;border-top:none'><?php echo $order_no;?></td>
+  <td class=xl91 style='text-align: center;border-top:none'><?php echo $member_name;?></td>
+  <!-- <td class=xl91 style='border-top:none'><?php echo $order_no;?></td>
+  <td class=xl91 style='text-align: center;border-top:none'><?php echo $member_name;?></td> -->
   <td class=xl91 align=right style='border-top:none'><?php echo number_format($order_amount);?></td>
   <td class=xl91 align=right style='border-top:none'><?php echo number_format($discount_amount);?></td>
   <td class=xl92 align=right style='border-top:none'><?php echo number_format($bonus_point);?></td>
@@ -347,21 +467,21 @@ rt
   <td class=xl103 style='border-top:none'>　</td>
   <td class=xl95></td>
   <td class=xl92 align=right style='border-top:none'><?php echo number_format($bonus_point);?></td>
-  <td height=22 style='height:16.8pt'></td>
  </tr>
  <?php 
+ $id += 1;
  	}
 	$total_amountH = $total_amountI;
 	$total_amountI = floor($total_amountI);
 	$total_amountJ = $total_amountG + $total_amountI;
 				
-	//$sql="update profit set profit_pdf='profitreport.php?sid=$sid&sdate=$sdate&edate=$edate&urate=$urate' where store_id=$sid and start_date='$sdate' and end_date='$edate'";
-	//mysqli_query($conn,$sql) or die(mysqli_error($conn));
+	$sql="update profit set profit_pdf='profitreport.php?sid=$sid&sdate=$sdate&edate=$edate&urate=$urate' where store_id=$sid and start_date='$sdate' and end_date='$edate'";
+	mysqli_query($conn,$sql) or die(mysqli_error($conn));
 	
 ?>				
  <tr height=31 style='mso-height-source:userset;height:23.4pt'>
   <td height=31 style='height:23.4pt'></td>
-  <td colspan=3 class=xl98>合計</td>
+  <td colspan=4 class=xl98>合計</td>
   <td class=xl99 align=right><?php echo number_format($total_amountA);?></td>
   <td class=xl99 align=right><?php echo number_format($total_amountB);?></td>
   <td class=xl100 align=right><?php echo number_format($total_amountC);?></td>
@@ -377,13 +497,12 @@ rt
   <td class=xl107 align=right><?php echo number_format($total_amountJ);?></td>
   <td class=xl95></td>
   <td class=xl100 align=right><?php echo number_format($total_amountK);?></td>
-  <td height=31 style='height:23.4pt'></td>
  </tr>
  <tr height=22 style='height:16.8pt'>
-  <td height=22 colspan=20 style='height:16.8pt;mso-ignore:colspan'></td>
+  <td height=22 colspan=19 style='height:16.8pt;mso-ignore:colspan'></td>
  </tr>
  <tr height=22 style='height:16.2pt'>
-  <td height=22 colspan=20 style='height:16.2pt;mso-ignore:colspan'></td>
+  <td height=22 colspan=19 style='height:16.2pt;mso-ignore:colspan'></td>
  </tr>
  <tr height=31 style='mso-height-source:userset;height:23.4pt'>
   <td height=31 colspan=5 style='height:23.4pt;mso-ignore:colspan'></td>
@@ -410,7 +529,7 @@ rt
   <td colspan=2 class=xl76><?php echo number_format($total_amountJ - $total_amountK) ;?></td>
   <td class=xl74 colspan=3 style='mso-ignore:colspan'><span
   style='mso-spacerun:yes'>&nbsp;</span><?php if ($total_amountJ >= $total_amountK) echo '店家應匯款金額'; else echo '店家應收款金額'; ?></td>
-  <td colspan=6 style='mso-ignore:colspan'></td>
+  <td colspan=5 style='mso-ignore:colspan'></td>
  </tr>
  <tr height=22 style='height:16.8pt'>
   <td height=22 colspan=11 style='height:16.8pt;mso-ignore:colspan'></td>
@@ -2392,13 +2511,25 @@ lqoBAAAA
  </tr>
  <tr height=26 style='mso-height-source:userset;height:19.2pt'>
   <td height=26 style='height:19.2pt'></td>
-  <td class=xl109 colspan=5 style='mso-ignore:colspan'>註2：應付系統費用金額計算：合計金額之小數點無條件捨去。<ruby><font
+  <td class=xl109 colspan=5 style='mso-ignore:colspan'>註2：應付系統費用金額計算，合計金額之小數點無條件捨去。<ruby><font
   class="font11"><rt class=font11></rt></font></ruby></td>
   <td colspan=5 style='mso-ignore:colspan'></td>
  </tr>
  <tr height=26 style='mso-height-source:userset;height:19.2pt'>
   <td height=26 style='height:19.2pt'></td>
-  <td class=xl109 colspan=7 style='mso-ignore:colspan'>註3：若對本對帳單內容有疑異，可掃描右方QRcode聯絡客服人員提供協助，謝謝。<ruby><font
+  <td class=xl109 colspan=7 style='mso-ignore:colspan'>註3：系統將依合約內容進行請款作業，發票於請款成功後開立。<ruby><font
+  class="font11"><rt class=font11></rt></font></ruby></td>
+  <td colspan=3 style='mso-ignore:colspan'></td>
+ </tr>
+ <tr height=26 style='mso-height-source:userset;height:19.2pt'>
+  <td height=26 style='height:19.2pt'></td>
+  <td class=xl109 colspan=7 style='mso-ignore:colspan'>註4：請店家開立發票寄送至創思，系統於收到發票後撥付款項。<ruby><font
+  class="font11"><rt class=font11></rt></font></ruby></td>
+  <td colspan=3 style='mso-ignore:colspan'></td>
+ </tr>
+ <tr height=26 style='mso-height-source:userset;height:19.2pt'>
+  <td height=26 style='height:19.2pt'></td>
+  <td class=xl109 colspan=7 style='mso-ignore:colspan'>註5：若對本對帳單內容有疑異，可掃描右方QRcode聯絡客服人員提供協助，謝謝。<ruby><font
   class="font11"><rt class=font11></rt></font></ruby></td>
   <td colspan=3 style='mso-ignore:colspan'></td>
  </tr>

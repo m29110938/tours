@@ -113,6 +113,15 @@ if ($_SESSION['authority']=="4"){
 			$SDate  = mysqli_real_escape_string($link,$SDate);
 			$EDate = isset($_POST['txtEDate']) ? $_POST['txtEDate'] : '';
 			$EDate  = mysqli_real_escape_string($link,$EDate);
+
+			$bSDate = isset($_POST['bSDate']) ? $_POST['bSDate'] : '';
+			$bSDate  = mysqli_real_escape_string($link,$bSDate);
+			$bEDate = isset($_POST['bEDate']) ? $_POST['bEDate'] : '';
+			$bEDate  = mysqli_real_escape_string($link,$bEDate);
+			$memberid = isset($_POST['member_id']) ? $_POST['member_id'] : '';
+			$memberid  = mysqli_real_escape_string($link,$memberid);
+			$store_name = isset($_POST['store_name']) ? $_POST['store_name'] : '';
+			$store_name  = mysqli_real_escape_string($link,$store_name);
 			//if ($SDate == "") {
 			//	$SDate = date("Y-m-d");;
 			//}
@@ -153,13 +162,27 @@ if ($_SESSION['authority']=="4"){
 								<!--<input type="text" name="field-name2" class="form-control" data-mask="0000/00/00" data-mask-clearifnotmatch="true" placeholder="yyyy/mm/dd" />-->
 								<input class="text-input small-input" type="date" name="txtEDate" id="txtEDate" value="<?=$EDate;?>" />
 							  </div>		
-						</div>						
+						</div>		
+						<div class="col-md-6 col-lg-2">
+							  <div class="form-group">
+								<label class="form-label">到期日期(起)</label>
+								<!--<input type="text" name="field-name1" class="form-control" data-mask="0000/00/00" data-mask-clearifnotmatch="true" placeholder="yyyy/mm/dd" />-->
+								<input class="text-input small-input" type="date" name="bSDate" id="bSDate" value="<?=$bSDate;?>" />
+							  </div>						
+						</div>
+                        <div class="col-md-6 col-lg-2">
+							  <div class="form-group">
+								<label class="form-label">到期日期(迄)</label>
+								<!--<input type="text" name="field-name2" class="form-control" data-mask="0000/00/00" data-mask-clearifnotmatch="true" placeholder="yyyy/mm/dd" />-->
+								<input class="text-input small-input" type="date" name="bEDate" id="bEDate" value="<?=$bEDate;?>" />
+							  </div>		
+						</div>					
 						<div class="col-md-6 col-lg-2">
 						  <div class="form-group">
-							<label class="form-label">訂單編號:</label>
+							<label class="form-label">帳號:</label>
 							<div class="row align-items-center">
 							  <div class="col-auto">
-								<input type="text" id="order_no" name="order_no" class="form-control w-12" value="<?php echo $order_no; ?>">
+								<input type="text" id="member_id" name="member_id" class="form-control w-12" value="<?php echo $memberid; ?>">
 							  </div>
 							</div>
 						  </div>	
@@ -173,7 +196,17 @@ if ($_SESSION['authority']=="4"){
 							  </div>
 							</div>
 						  </div>	
-						</div>						
+						</div>			
+						<div class="col-md-6 col-lg-2">
+						  <div class="form-group">
+							<label class="form-label">商店名稱:</label>
+							<div class="row align-items-center">
+							  <div class="col-auto">
+								<input type="text" id="store_name" name="store_name" class="form-control w-12" value="<?php echo $store_name; ?>">
+							  </div>
+							</div>
+						  </div>	
+						</div>				
 						<div class="col-md-6 col-lg-2">
 						  <div class="form-group">
 							  <label class="form-label">&nbsp;</label>
@@ -201,10 +234,11 @@ if ($_SESSION['authority']=="4"){
 				
 					//$sql = "SELECT * FROM mybonus where bid>0 ";
 
-					$sql = "(SELECT a.*,b.order_date,b.store_id,b.order_pay, c.member_id as memberid,c.member_name FROM mybonus as a ";
+					$sql = "(SELECT a.*,b.order_date,b.store_id,b.order_pay,b.bonus_date as bonus_get_date,b.bonus_end_date,c.member_id as memberid,c.member_name,d.store_name FROM mybonus as a ";
 					$sql = $sql." inner join ( select mid,member_id,member_name from member) c on a.member_id = c.mid ";
-					$sql = $sql." inner join ( select order_no,order_date,store_id,order_pay from orderinfo) b on a.order_no = b.order_no where a.bid>0 and a.bonus_type in (1,2)";
-					
+					$sql = $sql." inner join ( select order_no,order_date,store_id,order_pay,bonus_date,bonus_end_date from orderinfo) b on a.order_no = b.order_no ";
+					$sql = $sql." inner join ( select sid, store_name from store) d on b.store_id = d.sid ";
+					$sql = $sql."  where a.bid>0 and a.bonus_type in (1,2) ";
 					if (trim($membername) != "") {	
 						$sql = $sql." and member_name like '%".trim($membername)."%'";
 					}	
@@ -212,14 +246,28 @@ if ($_SESSION['authority']=="4"){
 						$sql = $sql." and order_no like '%".trim($order_no)."%'";
 					}					
 					if ($SDate != "") {	
-						$sql = $sql." and bonus_date >= '".$SDate." 00:00:00'";
+						$sql = $sql." and a.bonus_date >= '".$SDate." 00:00:00'";
 					}
 					if ($EDate != "") {	
-						$sql = $sql." and bonus_date <= '".$EDate." 23:59:59'";
-					}			
+						$sql = $sql." and a.bonus_date <= '".$EDate." 23:59:59'";
+					}		
+					// if ($SDate != "") {	
+					// 	$sql = $sql." and bonus_date >= '".$SDate." 00:00:00'";
+					// }
+					// if ($EDate != "") {	
+					// 	$sql = $sql." and bonus_date <= '".$EDate." 23:59:59'";
+					// }		
+					if ($memberid != "") {	
+						$sql = $sql." and c.member_id like '%".trim($memberid)."%'";
+					}
+					if ($store_name != "") {	
+						$sql = $sql." and store_name like '%".trim($store_name)."%'";
+					}
+
 					$sql = $sql." order by bonus_date )";
+					// echo $sql;
 					$sql = $sql." UNION ( ";
-					$sql = $sql." SELECT a.*,a.bonus_date as order_date,'5358995' as store_id,'0' as order_pay, c.member_id as memberid,c.member_name FROM mybonus as a ";
+					$sql = $sql." SELECT a.*,a.bonus_date as order_date,'5358995' as store_id,'0' as order_pay, '0' as bonus_get_date, '0' as bonus_end_date, c.member_id as memberid,c.member_name,'' as store_name FROM mybonus as a ";
 					$sql = $sql." inner join ( select mid,member_id,member_name from member) c on a.member_id = c.mid where a.bid>0 and a.bonus_type = 3 ";
 					//$sql = $sql." inner join ( select order_no,order_date,store_id,order_pay from orderinfo) b on a.order_no = b.order_no where a.bid>0 and a.bonus_type in (1,2))";
 					if (trim($membername) != "") {	
@@ -233,10 +281,14 @@ if ($_SESSION['authority']=="4"){
 					}
 					if ($EDate != "") {	
 						$sql = $sql." and bonus_date <= '".$EDate." 23:59:59'";
-					}			
+					}		
+					if ($memberid != "") {	
+						$sql = $sql." and c.member_id like '%".trim($memberid)."%'";
+					}	
+
 					$sql = $sql." order by bonus_date )";
 					//$sql = $sql." )";
-					
+					// echo $sql;
 					//$sql = $sql." where a.bid>0 ";
 					
 					//if (trim($membername) != "") {	
@@ -263,11 +315,13 @@ if ($_SESSION['authority']=="4"){
 							echo "    <tr>";
 							echo "	  <th>#</th>";
 							echo "	  <th>姓名</th>";
-							echo "	  <th>訂單編號</th>";
+							// echo "	  <th>訂單編號</th>";
 							echo "	  <th>消費日期</th>";
+							echo "	  <th>紅利歸戶日期</th>";
+							echo "	  <th>紅利到期日期</th>";
 							echo "	  <th>消費金額</th>";						  
 							echo "	  <th>類別</th>";
-							echo "	  <th>取得點數</th>";
+							echo "	  <th>紅利點數</th>";
 							echo "	  <th></th>";
 							echo "    </tr>";
 							echo "  </thead>";
@@ -277,8 +331,10 @@ if ($_SESSION['authority']=="4"){
 									echo "  <tr>";
 									echo "    <td>".$idx."</td>";
 									echo "    <td>".$row['member_name']."</td>";
-									echo "    <td>".$row['order_no']."</td>";
+									// echo "    <td>".$row['order_no']."</td>";
 									echo "    <td>".date('Y-m-d', strtotime($row['order_date']))."</td>";
+									echo "    <td>".date('Y-m-d', strtotime($row['bonus_get_date']))."</td>";
+									echo "    <td>".date('Y-m-d', strtotime($row['bonus_end_date']))."</td>";
 									echo "    <td align=right>".$row['order_pay']."</td>";
 									//echo "    <td>".$row['bonus_type']."</td>";
 										switch ($row['bonus_type']) {
@@ -325,7 +381,7 @@ if ($_SESSION['authority']=="4"){
 				  </div>
 					<?php }else{ echo "沒有符合條件的資料!";}} ?>				
 				</div>	
-				<?php echo "123"?>
+				<!-- <?php echo "123"?> -->
 		    </div>
 
             </div>

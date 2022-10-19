@@ -59,6 +59,19 @@ $order_no = isset($_POST['order_no']) ? $_POST['order_no'] : '';
 							if (mysqli_num_rows($result2) > 0){
 								$rows = array();
 								while($row2 = mysqli_fetch_array($result2)){
+									
+									// $member_name = $row['member_name'];
+									// $member_namelen = mb_strlen($member_name,`utf-8`);
+									// if($member_namelen <= 2){
+									// 	$member_namestr1 = mb_substr($member_name,0,1,`utf-8`);
+									// 	$member_namestr2 = mb_substr($member_name,2,`utf-8`);
+									// 	$member_name = $member_namestr1."O".$member_namestr2;
+									// }else{
+									// 	$member_namestr1 = mb_substr($member_name,0,1,`utf-8`);
+									// 	$member_namestr2 = mb_substr($member_name,3,`utf-8`);
+									// 	$member_name = $member_namestr1."OO".$member_namestr2;
+									// }
+
 									$rows[] = $row2;
 									//banner_subject, banner_date, banner_enddate, banner_descript	,banner_picture,banner_link
 								}

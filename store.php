@@ -246,7 +246,7 @@ if ($_SESSION['accname']==""){
 					$sql = $sql." inner join ( select store_type,storetype_name from store_type) as b ON a.store_type= b.store_type ";
 					$sql = $sql." inner join ( select aid,shopping_area from shopping_area) c on a.shopping_area = c.aid ";
 					
-					$sql = $sql." where a.store_trash=0 ";
+					$sql = $sql." where a.store_trash=0 and store_id != '-1'";
 					
 					if ($_SESSION['authority']=="4"){
 						$sql = $sql." and a.sid=".$_SESSION['loginsid']."";

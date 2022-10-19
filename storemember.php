@@ -321,14 +321,31 @@ function Save_Log($conn,$a,$b,$c,$d,$e){
 							echo "  </thead>";
 							echo "  <tbody>";
 							while($row = mysqli_fetch_array($result)){
-									$idx = $idx + 1;				
+									$idx = $idx + 1;
+									$member_id = $row['member_id'];
+									// $member_id = substr_replace($member_id,"XXXX",2,4);
+									$member_name = $row['member_name'];
+									// $member_namelen = mb_strlen($member_name,`utf-8`);
+									// if($member_namelen <= 2){
+									// 	$member_namestr1 = mb_substr($member_name,0,1,`utf-8`);
+									// 	$member_namestr2 = mb_substr($member_name,2,`utf-8`);
+									// 	$member_name = $member_namestr1."O".$member_namestr2;
+									// }else{
+									// 	$member_namestr1 = mb_substr($member_name,0,1,`utf-8`);
+									// 	$member_namestr2 = mb_substr($member_name,3,`utf-8`);
+									// 	$member_name = $member_namestr1."OO".$member_namestr2;
+									// }
+									$member_phone = $row['member_phone'];
+									// if($member_phone!=""){
+									// 	$member_phone = substr_replace($member_phone,"XXXX",2,4);
+									// }
 									echo "  <tr>";
 									echo "    <td>".$idx."</td>";
 									echo "    <td>".$row['store_name']."</td>";
-									echo "    <td>".$row['member_id']."</td>";
+									echo "    <td>".$member_id."</td>";
 									//echo "    <td>".$row['member_type']."</td>";
 							
-									echo "    <td>".$row['member_name']."</td>";
+									echo "    <td>".$member_name."</td>";
 									//echo "    <td>".$row['member_gender']."</td>";
 										switch ($row['member_gender']) {
 											case 0:
@@ -340,7 +357,7 @@ function Save_Log($conn,$a,$b,$c,$d,$e){
 											default:
 												echo "    <td>&nbsp;</td>";
 										}									
-									echo "    <td>".$row['member_phone']."</td>";
+									echo "    <td>".$member_phone."</td>";
 									
 									echo "    <td align=right>".($row['member_totalpoints']-$row['member_usingpoints'])."</td>";
 									echo "    <td>".$row['member_date']."</td>";

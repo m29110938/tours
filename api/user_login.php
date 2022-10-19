@@ -37,6 +37,27 @@ $FCM_Token = isset($_POST['FCM_Token']) ? $_POST['FCM_Token'] : '';
 
 			//if (($userid != "") && ($userpwd != "") && (strlen($userid) < 16) && (strlen($userpwd) < 16)){
 			
+			$sql = "SELECT * FROM member where member_trash=0 and member_status='1' ";   //and member_status='1' 
+			if ($member_id != "") {	
+				$sql = $sql." and member_id='".$member_id."'";
+			}
+			if ($result = mysqli_query($link, $sql)) {
+				if (mysqli_num_rows($result) > 0) {
+					while ($row = mysqli_fetch_array($result)) {
+						$memberpwd = $row["member_pwd"];
+					}
+					if ($member_pwd != $memberpwd){
+						$data["status"]="false";
+						$data["code"]="0x0207";
+						$data["responseMessage"]="Password is wrong!";
+						header('Content-Type: application/json');
+						echo (json_encode($data, JSON_UNESCAPED_UNICODE));
+						exit;
+					}
+				}
+			}
+
+
 			$sql = "SELECT * FROM member where member_trash=0 ";   //and member_status='1' 
 			if ($member_id != "") {	
 				$sql = $sql." and member_id='".$member_id."'";

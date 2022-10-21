@@ -217,7 +217,7 @@ $bonus_point = isset($_POST['bonus_point']) ? $_POST['bonus_point'] : '0';
 																	// add-2022-06-02 修bug
 																	// date_default_timezone_set('Asia/Taipei');
 																	$month = date('m');
-																	if ($month >= 1 || $month <= 6){
+																	if ($month >= 1 && $month <= 6){
 																		$sql3="update orderinfo set urate=$user_rate,bonus_get=$bonus,bonus_date=NOW(),bonus_end_date= CONCAT(EXTRACT(YEAR FROM NOW()),'-12-31 23:59:59') where order_no=$order_no";
 																	}else{
 																		$sql3="update orderinfo set urate=$user_rate,bonus_get=$bonus,bonus_date=NOW(),bonus_end_date= CONCAT(EXTRACT(YEAR FROM NOW())+1,'-06-30 23:59:59') where order_no=$order_no";
@@ -253,7 +253,7 @@ $bonus_point = isset($_POST['bonus_point']) ? $_POST['bonus_point'] : '0';
 																	$date2 = new DateTime(date("Y-m-d"));
 																	$date1 = date('Y-m-d',strtotime('+14 day'));
 																	// $month = date('m');
-																	if ($date1->format('m') >= 1 || $date1->format('m') <= 6){
+																	if ($date1->format('m') >= 1 && $date1->format('m') <= 6){
 																		$sql3="update orderinfo set urate=$user_rate,bonus_get=$bonus,bonus_date='".$date1->format('Y-m-d')." 00:04:00',bonus_end_date= '".date("Y",strtotime("+0 year",strtotime($date1)))."-12-31 23:59:59' where order_no=$order_no";
 																	}else{
 																		$sql3="update orderinfo set urate=$user_rate,bonus_get=$bonus,bonus_date='".$date1->format('Y-m-d')." 00:04:00',bonus_end_date= '".date("Y",strtotime("+1 year",strtotime($date1)))."-06-30 23:59:59' where order_no=$order_no";
@@ -422,7 +422,7 @@ $bonus_point = isset($_POST['bonus_point']) ? $_POST['bonus_point'] : '0';
 																	// add-2022-06-02 修bug
 																	// date_default_timezone_set('Asia/Taipei');
 																	$month = date('m');
-																	if ($month >= 1 || $month <= 6){
+																	if ($month >= 1 && $month <= 6){
 																		$sql3="update orderinfo set urate=$user_rate,bonus_get=$bonus,bonus_date=NOW(),bonus_end_date= CONCAT(EXTRACT(YEAR FROM NOW()),'-12-31 23:59:59') where order_no=$order_no";
 																	}else{
 																		$sql3="update orderinfo set urate=$user_rate,bonus_get=$bonus,bonus_date=NOW(),bonus_end_date= CONCAT(EXTRACT(YEAR FROM NOW())+1,'-06-30 23:59:59') where order_no=$order_no";
@@ -459,7 +459,7 @@ $bonus_point = isset($_POST['bonus_point']) ? $_POST['bonus_point'] : '0';
 																	$date2 = new DateTime(date("Y-m-d"));
 																	$date1 = date('Y-m-d',strtotime('+14 day'));
 																	// $month = date('m');
-																	if ($date1->format('m') >= 1 || $date1->format('m') <= 6){
+																	if ($date1->format('m') >= 1 && $date1->format('m') <= 6){
 																		$sql3="update orderinfo set urate=$user_rate,bonus_get=$bonus,bonus_date='".$date1->format('Y-m-d')." 00:04:00',bonus_end_date= '".date("Y",strtotime("+0 year",strtotime($date1)))."-12-31 23:59:59' where order_no=$order_no";
 																	}else{
 																		$sql3="update orderinfo set urate=$user_rate,bonus_get=$bonus,bonus_date='".$date1->format('Y-m-d')." 00:04:00',bonus_end_date= '".date("Y",strtotime("+1 year",strtotime($date1)))."-06-30 23:59:59' where order_no=$order_no";

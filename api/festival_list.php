@@ -39,8 +39,9 @@ $member_pwd = isset($_POST['member_pwd']) ? $_POST['member_pwd'] : '';
 						//echo mysqli_affected_rows($link);
 						//exit;
 						//$sql2 = "SELECT bid,member_id, order_no, bonus_date, bonus_type ,bonus from mybonus where bid>0 ";					
-						$sql2 = "SELECT * from festival";
-						$sql2 = $sql2." where fid>0 and festival_trash=0  ";
+						$sql2 = "SELECT a.fid,b.shopping_area,a.festival_name,a.festival_descript,a.festival_time,a.festival_picture from festival as a ";
+						$sql2 = $sql2." INNER JOIN ( SELECT * FROM shopping_area) as b on b.aid = a.shopping_area  ";
+						$sql2 = $sql2." where a.fid>0 and a.festival_trash=0 and b.shoppingarea_trash=0 ";
 						//$data = "";
 						// echo $sql2;
 						if ($result2 = mysqli_query($link, $sql2)){

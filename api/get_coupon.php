@@ -50,6 +50,7 @@ $coupon_id = isset($_POST['coupon_id']) ? $_POST['coupon_id'] : '';
 //echo $sql;
 //exit;
 								mysqli_query($link,$sql) or die(mysqli_error($link));
+								
 								$rvalue = mysqli_affected_rows($link);
 								if ($rvalue > 0) {
 									

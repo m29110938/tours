@@ -134,6 +134,10 @@ if ($_SESSION['authority']=="4"){
 			$SDate  = mysqli_real_escape_string($link,$SDate);
 			$EDate = isset($_POST['txtEDate']) ? $_POST['txtEDate'] : '';
 			$EDate  = mysqli_real_escape_string($link,$EDate);
+			$couponSDate = isset($_POST['couponSDate']) ? $_POST['couponSDate'] : '';
+			$couponSDate  = mysqli_real_escape_string($link,$couponSDate);
+			$couponEDate = isset($_POST['couponEDate']) ? $_POST['couponEDate'] : '';
+			$couponEDate  = mysqli_real_escape_string($link,$couponEDate);
 			//if ($SDate == "") {
 			//	$SDate = date("Y-m-d");;
 			//}
@@ -152,6 +156,8 @@ if ($_SESSION['authority']=="4"){
 			<input type="hidden" name="shopping_area" id="shopping_area" value="<?=$shopping_area;?>">
 			<input type="hidden" name="SDate" id="SDate"  value="<?=$SDate;?>"/>
 			<input type="hidden" name="EDate" id="EDate" value="<?=$EDate;?>">
+			<input type="hidden" name="couponSDate" id="couponSDate"  value="<?=$couponSDate;?>"/>
+			<input type="hidden" name="couponEDate" id="couponEDate" value="<?=$couponEDate;?>">
 		</form>
         <!-- Begin Page Content -->
         <div class="container-fluid">
@@ -173,6 +179,20 @@ if ($_SESSION['authority']=="4"){
 					<input type="hidden" name="tid" id="tid"  value=""/>
 					<input type="hidden" name="page" id="page" value="1">
 					<div class="row">
+						<div class="col-md-6 col-lg-2">
+							  <div class="form-group">
+								<label class="form-label">領取日期(起)</label>
+								<!--<input type="text" name="field-name1" class="form-control" data-mask="0000/00/00" data-mask-clearifnotmatch="true" placeholder="yyyy/mm/dd" />-->
+								<input class="text-input small-input" type="date" name="couponSDate" id="couponSDate" value="<?=$couponSDate;?>" />
+							  </div>						
+						</div>
+                        <div class="col-md-6 col-lg-2">
+							  <div class="form-group">
+								<label class="form-label">領取日期(迄)</label>
+								<!--<input type="text" name="field-name2" class="form-control" data-mask="0000/00/00" data-mask-clearifnotmatch="true" placeholder="yyyy/mm/dd" />-->
+								<input class="text-input small-input" type="date" name="couponEDate" id="couponEDate" value="<?=$couponEDate;?>" />
+							  </div>		
+						</div>	
                         <div class="col-md-6 col-lg-2">
 							  <div class="form-group">
 								<label class="form-label">使用日期(起)</label>
@@ -345,6 +365,12 @@ if ($_SESSION['authority']=="4"){
 					if ($EDate != "") {	
 						$sql = $sql." and a.using_date <= '".$EDate." 23:59:59'";
 					}			
+					if ($couponSDate != "") {	
+						$sql = $sql." and a.mycoupon_created_at >= '".$couponSDate." 00:00:00'";
+					}
+					if ($couponEDate != "") {	
+						$sql = $sql." and a.mycoupon_created_at <= '".$couponEDate." 23:59:59'";
+					}	
 
 					$sql = $sql." order by a.coupon_no ";
 
@@ -367,6 +393,7 @@ if ($_SESSION['authority']=="4"){
 							echo "	  <th>商圈分類</th>";
 							echo "	  <th>折扣方式</th>";
 							echo "	  <th>到期日期</th>";						  
+							echo "	  <th>領取日期</th>";						  
 							echo "	  <th>使用日期</th>";
 							echo "	  <th>使用狀態</th>";
 							//echo "	  <th></th>";
@@ -397,18 +424,19 @@ if ($_SESSION['authority']=="4"){
 										}									
 								
 									echo "    <td>".date('Y-m-d', strtotime($row['coupon_enddate']))."</td>";
+									echo "    <td>".$row['mycoupon_created_at']."</td>";
 									echo "    <td>".$row['using_date']."</td>";
 									//echo "    <td>".$row['member_status']."</td>";
-										switch ($row['using_flag']) {
-											case 1:
-												echo "    <td>已使用</td>";
-												break;
-											case 0:
-												echo "    <td>未使用</td>";
-												break;
-											default:
-												echo "    <td>未使用</td>";
-										}									
+									switch ($row['using_flag']) {
+										case 1:
+											echo "    <td>已使用</td>";
+											break;
+										case 0:
+											echo "    <td>未使用</td>";
+											break;
+										default:
+											echo "    <td>未使用</td>";
+									}									
 									//echo "    <td>";
 									//echo "      <a href='javascript:GoEdit(".$row['pid'].")'><i class='fa fa-edit'></i></a>";
 									//echo "    </td>";
@@ -501,7 +529,7 @@ for($i=0;$i<($datanum/$j);$i++){
   </div>
 
   <SCRIPT LANGUAGE=javascript>
-	<!--
+	
 	function ExportLog()
 	{
 		// document.all.downloadlog.src="mycoupon.php";

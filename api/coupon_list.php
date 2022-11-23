@@ -37,20 +37,23 @@ $coupon_type = isset($_POST['coupon_type']) ? $_POST['coupon_type'] : '';
 					}
 					try {
 						//DATE_FORMAT(coupon_startdate, "%Y %m %d")
-						$sql2 = "SELECT cid,coupon_id,coupon_name, coupon_type, coupon_description, DATE_FORMAT(coupon_issue_startdate, '%Y-%m-%d') as coupon_issue_startdate,DATE_FORMAT(coupon_issue_enddate, '%Y-%m-%d') as coupon_issue_enddate, DATE_FORMAT(coupon_startdate, '%Y-%m-%d') as coupon_startdate,DATE_FORMAT(coupon_enddate, '%Y-%m-%d') as coupon_enddate,coupon_status,coupon_rule,coupon_discount,discount_amount,coupon_storeid,coupon_for,coupon_picture FROM coupon where coupon_trash=0 and coupon_status=1";
-						$sql2 = $sql2." and coupon_issue_enddate >= '".date("Y-m-d")."'";
-						$sql2 = $sql2." and coupon_issue_startdate <= '".date("Y-m-d")."'";
-						$sql2 = $sql2." and coupon_enddate >= '".date("Y-m-d")."'";
-						$sql2 = $sql2." and coupon_id not in (SELECT coupon_id from mycoupon where mid=$mid) ";
+						$sql2 = "SELECT a.cid,a.coupon_id,a.coupon_name, a.coupon_type, a.coupon_description, DATE_FORMAT(a.coupon_issue_startdate, '%Y-%m-%d') as coupon_issue_startdate,DATE_FORMAT(a.coupon_issue_enddate, '%Y-%m-%d') as coupon_issue_enddate, DATE_FORMAT(a.coupon_startdate, '%Y-%m-%d') as coupon_startdate,DATE_FORMAT(a.coupon_enddate, '%Y-%m-%d') as coupon_enddate,a.coupon_status,a.coupon_rule,a.coupon_discount,a.discount_amount,a.coupon_storeid,coupon_for,a.coupon_picture FROM coupon as a";
+						$sql2 = $sql2." left join (select * from membercard) as b on a.coupon_storeid=b.store_id";
+						$sql2 = $sql2." where a.coupon_trash=0 and a.coupon_status=1";
+						$sql2 = $sql2." and a.coupon_issue_enddate >= '".date("Y-m-d")."'";
+						$sql2 = $sql2." and a.coupon_issue_startdate <= '".date("Y-m-d")."'";
+						$sql2 = $sql2." and a.coupon_enddate >= '".date("Y-m-d")."'";
+						$sql2 = $sql2." and a.coupon_id not in (SELECT coupon_id from mycoupon where mid=$mid) ";
+						$sql2 = $sql2." and b.member_id='$mid'";
 						if ($sid != "") {	
-							$sql2 = $sql2." and coupon_storeid=".$sid."";
+							$sql2 = $sql2." and a.coupon_storeid=".$sid."";
 						}
 						if ($coupon_type != "") {	
-							$sql2 = $sql2." and coupon_type=".$coupon_type."";
+							$sql2 = $sql2." and a.coupon_type=".$coupon_type."";
 						}else{
-							$sql2 = $sql2." and coupon_type in (1,2,4,5)";
+							$sql2 = $sql2." and a.coupon_type in (1,2,4,5)";
 						}
-						$sql2 = $sql2." order by coupon_type,coupon_startdate";
+						$sql2 = $sql2." order by a.coupon_type,a.coupon_startdate";
 						// echo $sql2;
 						//$sql2 = "SELECT bid,banner_subject, banner_date, banner_enddate, banner_descript,banner_picture,banner_link FROM banner where banner_trash=0 ";
 						//$sql2 = $sql2." and banner_enddate > NOW()";

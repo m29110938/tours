@@ -29,6 +29,8 @@ $SDate  = mysqli_real_escape_string($link,$SDate);
 $EDate = isset($_POST['EDate']) ? $_POST['EDate'] : '';
 $EDate  = mysqli_real_escape_string($link,$EDate);
 
+$shopping_area = isset($_POST['shopping_area']) ? $_POST['shopping_area'] : '';
+$shopping_area  = mysqli_real_escape_string($link,$shopping_area);	
 // header("Content-type: text/html; charset=utf-8");
 // header("Content-type:application/vnd.ms-excel;charset=UTF-8");
 // header("Content-Disposition:filename=member.csv"); //輸出的表格名稱
@@ -45,10 +47,10 @@ $EDate  = mysqli_real_escape_string($link,$EDate);
 // $sql = $sql." where a.oid>0 ";
 // $sql = $sql." order by a.order_date ";
 
-$sql = "SELECT a.*,b.rid,b.store_id,b.member_id as memberid,b.member_date,b.card_type,b.membercard_status,b.membercard_trash,c.store_name FROM member as a ";
+$sql = "SELECT a.*,b.rid,b.store_id,b.member_id as memberid,b.member_date,b.card_type,b.membercard_status,b.membercard_trash,c.store_name,d.shopping_area FROM member as a ";
 $sql = $sql." inner join ( select rid,store_id,member_id,member_date,card_type,membercard_status,membercard_trash from membercard) as b ON a.mid= b.member_id ";
-$sql = $sql." inner join ( select sid,store_name from store) c on b.store_id = c.sid ";
-
+$sql = $sql." inner join ( select sid,store_name,shopping_area from store) as c on b.store_id = c.sid ";
+$sql = $sql." inner join ( select aid,shopping_area from shopping_area) as d on c.shopping_area = d.aid ";
 $sql = $sql." where a.member_trash=0 and b.membercard_trash=0";
 //$sql = "SELECT * FROM member where member_trash=0 ";
 if ($authority=="4"){
@@ -75,22 +77,26 @@ if ($SDate != "") {
 }
 if ($EDate != "") {	
     $sql = $sql." and b.member_date <= '".$EDate." 23:59:59'";
+}				
+if ($shopping_area != "") {	
+    $sql = $sql." and c.shopping_area=".$shopping_area."";
 }			
 $sql = $sql." order by b.store_id,a.member_id ";
-
+// echo $sql;
 $result = mysqli_query($link, $sql);
 
 $export = "";
 $export .= '
 <table> 
 <tr> 
+<th>商圈分類</th>
 <th>店家</th>
 <th>帳號</th> 
 <th>姓名</th> 
 <th>性別</th> 
 <th>手機</th>
 <th>紅利點數</th> 
-<th>註冊日期</th> 
+<th>加入日期</th> 
 <th>狀態</th>
 </tr>
 ';
@@ -125,6 +131,7 @@ while($row=mysqli_fetch_array($result)){
     
     $export .= '
     <tr>
+    <td>'.$row["shopping_area"].'</td> 
     <td>'.$row["store_name"].'</td> 
     <td>'.$row["member_id"].'</td> 
     <td>'.$row["member_name"].'</td> 

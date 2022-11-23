@@ -119,6 +119,9 @@ if ($_SESSION['authority']=="4"){
 			$SDate  = mysqli_real_escape_string($link,$SDate);
 			$EDate = isset($_POST['txtEDate']) ? $_POST['txtEDate'] : '';
 			$EDate  = mysqli_real_escape_string($link,$EDate);
+
+			$coupon_status = isset($_POST['coupon_status']) ? $_POST['coupon_status'] : '';
+			$coupon_status  = mysqli_real_escape_string($link,$coupon_status);
 			//if ($SDate == "") {
 			//	$SDate = date("Y-m-d");;
 			//}
@@ -155,7 +158,7 @@ if ($_SESSION['authority']=="4"){
 								  <option value="1" <?php if ($coupon_type=="1") echo " selected"; ?>>店家優惠券</option>
 								  <option value="2" <?php if ($coupon_type=="2") echo " selected"; ?>>店家生日禮</option>
 								  <!-- <option value="2" <?php if ($coupon_type=="2") echo " selected"; ?>>店家生日禮</option> -->
-								  <option value="9" <?php if ($coupon_type=="9") echo " selected"; ?>>店家入會禮</option>
+								  <option value="3" <?php if ($coupon_type=="3") echo " selected"; ?>>店家入會禮</option>
 								  <option value="4" <?php if ($coupon_type=="4") echo " selected"; ?>>平台優惠券</option>
 								  <option value="5" <?php if ($coupon_type=="5") echo " selected"; ?>>平台生日禮</option>
 								  <!-- <option value="5" <?php if ($coupon_type=="5") echo " selected"; ?>>平台生日禮</option> -->
@@ -204,8 +207,8 @@ if ($_SESSION['authority']=="4"){
 								<label class="form-label">狀態:</label>
 								<select name="coupon_status" id="coupon_status" class="form-control custom-select">
 								  <option value="">--全選--</option>
-								  <option value="1">啟用</option>
-								  <option value="0">未啟用</option>
+								  <option value="1" <?php if ($coupon_status=="1") echo " selected"; ?>>啟用</option>
+								  <option value="0" <?php if ($coupon_status=="0") echo " selected"; ?>>停用</option>
 								</select>
 							</div>
 						</div>						
@@ -235,7 +238,7 @@ if ($_SESSION['authority']=="4"){
 				//if ($act == 'Qry') {
 				
 					$sql = "SELECT a.*,b.store_id,b.store_name FROM coupon as a ";
-					$sql = $sql." left join ( select sid,store_id,store_name from store) as b ON a.coupon_storeid= b.sid ";
+					$sql = $sql." inner join ( select sid,store_id,store_name from store) as b ON a.coupon_storeid= b.sid ";
 					$sql = $sql." where a.coupon_trash=0 and coupon_type <> 8 ";
 					if ($coupon_type != "") {	
 						$sql = $sql." and coupon_type= ".$coupon_type."";
@@ -255,6 +258,9 @@ if ($_SESSION['authority']=="4"){
 					if ($EDate != "") {	
 						$sql = $sql." and coupon_enddate <= '".$EDate." 23:59:59'";
 					}			
+					if ($coupon_status != "") {	
+						$sql = $sql." and coupon_status = '$coupon_status'";
+					}
 					$sql = $sql." order by coupon_startdate desc ";
 					//echo $sql;
 					//exit;
@@ -271,7 +277,8 @@ if ($_SESSION['authority']=="4"){
 							echo "	  <th>發放數量</th>";						  
 							echo "	  <th>使用期限</th>";						  
 							echo "	  <th>優惠券類別</th>";						  
-							echo "	  <th>發行店家</th>";
+							echo "	  <th>發行店家</th>";				  
+							echo "	  <th>狀態</th>";
 							if (($_SESSION['authority']=="1")||($_SESSION['authority']=="2")){ echo "	  <th></th>"; }
 							if ($_SESSION['authority']=="1"){ echo "	  <th></th>"; }
 							echo "    </tr>";
@@ -324,6 +331,14 @@ if ($_SESSION['authority']=="4"){
 												echo "    <td>平台優惠券</td>";
 										}									
 									echo "    <td>".$row['store_name']."</td>";
+									switch ($row['coupon_status']) {
+										case 0:
+											echo "    <td>停用</td>";
+											break;
+										case 1:
+											echo "    <td>啟用</td>";
+											break;
+									}	
 									if (($_SESSION['authority']=="1")||($_SESSION['authority']=="2")){
 										echo "    <td>";
 										echo "      <a href='javascript:GoEdit(".$row['cid'].")'><i class='fa fa-edit'></i></a>";
@@ -407,7 +422,7 @@ if ($_SESSION['authority']=="4"){
     </div>
   </div>
 	<SCRIPT LANGUAGE=javascript>
-	<!--
+	
 	function ExportLog()
 	{
 		document.all.downloadlog.src="coupon.php";

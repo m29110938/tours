@@ -127,6 +127,8 @@ function Save_Log($conn,$a,$b,$c,$d,$e){
 			$SDate  = mysqli_real_escape_string($link,$SDate);
 			$EDate = isset($_POST['txtEDate']) ? $_POST['txtEDate'] : '';
 			$EDate  = mysqli_real_escape_string($link,$EDate);
+			$shopping_area = isset($_POST['shopping_area']) ? $_POST['shopping_area'] : '';
+			$shopping_area  = mysqli_real_escape_string($link,$shopping_area);	
 			//if ($SDate == "") {
 			//	$SDate = date("Y-m-d");;
 			//}
@@ -146,6 +148,7 @@ function Save_Log($conn,$a,$b,$c,$d,$e){
 			<input type="hidden" name="membername" id="membername" value="<?=$membername;?>">
 			<input type="hidden" name="SDate" id="SDate"  value="<?=$SDate;?>"/>
 			<input type="hidden" name="EDate" id="EDate" value="<?=$EDate;?>">
+			<input type="hidden" name="shopping_area" id="shopping_area" value="<?=$shopping_area;?>">
 		</form>
         <!-- Begin Page Content -->
         <div class="container-fluid">
@@ -170,14 +173,14 @@ function Save_Log($conn,$a,$b,$c,$d,$e){
 					<div class="row">
                         <div class="col-md-6 col-lg-2">
 							  <div class="form-group">
-								<label class="form-label">註冊日期(起)</label>
+								<label class="form-label">加入日期(起)</label>
 								<!--<input type="text" name="field-name1" class="form-control" data-mask="0000/00/00" data-mask-clearifnotmatch="true" placeholder="yyyy/mm/dd" />-->
 								<input class="text-input small-input" type="date" name="txtSDate" id="txtSDate" value="<?=$SDate;?>" />
 							  </div>						
 						</div>
                         <div class="col-md-6 col-lg-2">
 							  <div class="form-group">
-								<label class="form-label">註冊日期(迄)</label>
+								<label class="form-label">加入日期(迄)</label>
 								<!--<input type="text" name="field-name2" class="form-control" data-mask="0000/00/00" data-mask-clearifnotmatch="true" placeholder="yyyy/mm/dd" />-->
 								<input class="text-input small-input" type="date" name="txtEDate" id="txtEDate" value="<?=$EDate;?>" />
 							  </div>		
@@ -232,7 +235,31 @@ function Save_Log($conn,$a,$b,$c,$d,$e){
 								</select>
 							</div>
 						</div>
-						
+						<div class="col-md-6 col-lg-2">
+							<div class="form-group">
+								<label class="form-label">商圈分類:</label>
+								<select name="shopping_area" id="shopping_area" class="form-control custom-select">
+								  <option value="">--全選--</option>
+								  <?php
+									$sql3 = "select aid,shopping_area from shopping_area where shoppingarea_trash=0 order by shopping_area asc";
+									
+									if ($result3 = mysqli_query($link, $sql3)){
+										if (mysqli_num_rows($result3) > 0){
+											$selectedflag = "";
+											while($row3 = mysqli_fetch_array($result3)){
+												if ($shopping_area == strval($row3['aid'])) {
+													$selectedflag = " selected ";
+												}else{
+													$selectedflag = "";
+												}
+												echo "<option value='".$row3['aid']."' ".$selectedflag." >".$row3['shopping_area']."</option>";
+											}
+										}
+									}								
+								  ?>
+								</select>
+							</div>
+						</div>
 						<div class="col-md-6 col-lg-3">
 						  <div class="form-group">
 							  <label class="form-label">&nbsp;</label>
@@ -261,9 +288,10 @@ function Save_Log($conn,$a,$b,$c,$d,$e){
 				//if ($act == 'Qry') {
 				//membercard
 
-					$sql = "SELECT a.*,b.rid,b.store_id,b.member_id as memberid,b.member_date,b.card_type,b.membercard_status,b.membercard_trash,c.store_name FROM member as a ";
+					$sql = "SELECT a.*,b.rid,b.store_id,b.member_id as memberid,b.member_date,b.card_type,b.membercard_status,b.membercard_trash,c.store_name,d.shopping_area FROM member as a ";
 					$sql = $sql." inner join ( select rid,store_id,member_id,member_date,card_type,membercard_status,membercard_trash from membercard) as b ON a.mid= b.member_id ";
-					$sql = $sql." inner join ( select sid,store_name from store) c on b.store_id = c.sid ";
+					$sql = $sql." inner join ( select sid,store_name,shopping_area from store) as c on b.store_id = c.sid ";
+					$sql = $sql." inner join ( select aid,shopping_area from shopping_area) as d on c.shopping_area = d.aid ";
 
 					$sql = $sql." where a.member_trash=0 and b.membercard_trash=0";
 					//$sql = "SELECT * FROM member where member_trash=0 ";
@@ -291,9 +319,12 @@ function Save_Log($conn,$a,$b,$c,$d,$e){
 					}
 					if ($EDate != "") {	
 						$sql = $sql." and b.member_date <= '".$EDate." 23:59:59'";
-					}			
+					}					
+					if ($shopping_area != "") {	
+						$sql = $sql." and c.shopping_area=".$shopping_area."";
+					}	
 					$sql = $sql." order by b.store_id,a.member_id ";
-					//echo $sql;
+					// echo $sql;
 					//exit;
 
 					$idx = 0;
@@ -303,13 +334,14 @@ function Save_Log($conn,$a,$b,$c,$d,$e){
 							echo "  <thead>";
 							echo "    <tr>";
 							echo "	  <th>#</th>";
+							echo "	  <th>商圈分類</th>";
 							echo "	  <th>店家</th>";
 							echo "	  <th>帳號</th>";
 							echo "	  <th>姓名</th>";
 							echo "	  <th>性別</th>";
 							echo "	  <th>手機</th>";						  
 							echo "	  <th>紅利點數</th>";
-							echo "	  <th>註冊日期</th>";
+							echo "	  <th>加入日期</th>";
 							echo "	  <th>狀態</th>";
 							if (($_SESSION['authority']=="1")||($_SESSION['authority']=="2")||($_SESSION['authority']=="4")){
 								//echo "	  <th></th>";
@@ -341,6 +373,7 @@ function Save_Log($conn,$a,$b,$c,$d,$e){
 									// }
 									echo "  <tr>";
 									echo "    <td>".$idx."</td>";
+									echo "    <td>".$row['shopping_area']."</td>";
 									echo "    <td>".$row['store_name']."</td>";
 									echo "    <td>".$member_id."</td>";
 									//echo "    <td>".$row['member_type']."</td>";
@@ -460,7 +493,7 @@ function Save_Log($conn,$a,$b,$c,$d,$e){
   </div>
 
   <SCRIPT LANGUAGE=javascript>
-	<!--
+	
 	function ExportLog()
 	{
 		// document.all.downloadlog.src="storemember.php";

@@ -32,6 +32,10 @@ $SDate = isset($_POST['SDate']) ? $_POST['SDate'] : '';
 $SDate  = mysqli_real_escape_string($link,$SDate);
 $EDate = isset($_POST['EDate']) ? $_POST['EDate'] : '';
 $EDate  = mysqli_real_escape_string($link,$EDate);
+$couponSDate = isset($_POST['couponSDate']) ? $_POST['couponSDate'] : '';
+$couponSDate  = mysqli_real_escape_string($link,$couponSDate);
+$couponEDate = isset($_POST['couponEDate']) ? $_POST['couponEDate'] : '';
+$couponEDate  = mysqli_real_escape_string($link,$couponEDate);
 
 // echo $couponno;
 // header("Content-type: text/html; charset=utf-8");
@@ -85,6 +89,12 @@ if ($SDate != "") {
 }
 if ($EDate != "") {	
     $sql = $sql." and a.using_date <= '".$EDate." 23:59:59'";
+}		
+if ($couponSDate != "") {	
+    $sql = $sql." and a.mycoupon_created_at >= '".$couponSDate." 00:00:00'";
+}
+if ($couponEDate != "") {	
+    $sql = $sql." and a.mycoupon_created_at <= '".$couponEDate." 23:59:59'";
 }			
 $sql = $sql." order by a.coupon_no ";
 
@@ -104,6 +114,7 @@ $export .= '
 <th>商圈分類</th>
 <th>折扣方式</th>
 <th>到期日期</th> 
+<th>領取日期</th> 
 <th>使用日期</th> 
 <th>使用狀態</th>
 </tr>
@@ -143,6 +154,7 @@ while($row=mysqli_fetch_array($result)){
         <td>'.$row["shopping_area"].'</td> 
         <td>'.$coupon_discount.'</td> 
         <td>'.date('Y-m-d', strtotime($row['coupon_enddate'])).'</td> 
+        <td>'.$row['mycoupon_created_at'].'</td> 
         <td>'.$row['using_date'].'</td> 
         <td>'.$using_flag.'</td>
     </tr>

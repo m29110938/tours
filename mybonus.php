@@ -216,7 +216,7 @@ if ($_SESSION['authority']=="4"){
 						  </div>
 						</div>						
 					</div>					
-					</form>
+				</form>
 				  </div>
               </div>
 
@@ -317,11 +317,11 @@ if ($_SESSION['authority']=="4"){
 							echo "	  <th>姓名</th>";
 							// echo "	  <th>訂單編號</th>";
 							echo "	  <th>消費日期</th>";
-							echo "	  <th>紅利歸戶日期</th>";
-							echo "	  <th>紅利到期日期</th>";
 							echo "	  <th>消費金額</th>";						  
 							echo "	  <th>類別</th>";
 							echo "	  <th>紅利點數</th>";
+							echo "	  <th>紅利歸戶日期</th>";
+							echo "	  <th>紅利到期日期</th>";
 							echo "	  <th></th>";
 							echo "    </tr>";
 							echo "  </thead>";
@@ -333,8 +333,6 @@ if ($_SESSION['authority']=="4"){
 									echo "    <td>".$row['member_name']."</td>";
 									// echo "    <td>".$row['order_no']."</td>";
 									echo "    <td>".date('Y-m-d', strtotime($row['order_date']))."</td>";
-									echo "    <td>".date('Y-m-d', strtotime($row['bonus_get_date']))."</td>";
-									echo "    <td>".date('Y-m-d', strtotime($row['bonus_end_date']))."</td>";
 									echo "    <td align=right>".$row['order_pay']."</td>";
 									//echo "    <td>".$row['bonus_type']."</td>";
 										switch ($row['bonus_type']) {
@@ -349,8 +347,10 @@ if ($_SESSION['authority']=="4"){
 												break;
 											default:
 												echo "    <td>&nbsp;</td>";
-										}									
+										}			
 									echo "    <td align=right>".$row['bonus']."</td>";
+									echo "    <td>".date('Y-m-d', strtotime($row['bonus_get_date']))."</td>";
+									echo "    <td>".date('Y-m-d', strtotime($row['bonus_end_date']))."</td>";						
 									echo "    <td>";
 									echo "      <a href='javascript:GoEdit(".$row['bid'].")'><i class='fa fa-list'></i></a>";
 									echo "    </td>";
@@ -433,7 +433,7 @@ if ($_SESSION['authority']=="4"){
     </div>
   </div>
   <SCRIPT LANGUAGE=javascript>
-	<!--
+	
 	function ExportLog()
 	{
 		document.all.downloadlog.src="mybonus.php";

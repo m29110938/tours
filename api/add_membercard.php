@@ -85,7 +85,7 @@ $sid = isset($_POST['sid']) ? $_POST['sid'] : '0';
 
 
 									// get 加入店家會員禮
-									$sql6 = "SELECT * FROM coupon where coupon_trash=0 and coupon_type=3 and coupon_storeid='".$sid."' where coupon_status=1 and coupon_trush=0";
+									$sql6 = "SELECT * FROM coupon where coupon_trash=0 and coupon_type=3 and coupon_status=1 and coupon_storeid='$sid' ";
 									if ($result6 = mysqli_query($link, $sql6)){
 										if (mysqli_num_rows($result6) > 0){
 											// login ok

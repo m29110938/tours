@@ -294,7 +294,7 @@ if (($_SESSION['authority']=="3")||($_SESSION['authority']=="4")){
       </div>
       <!-- End of Main Content -->
 	<SCRIPT LANGUAGE=javascript>
-	<!--
+	
 	function DelRecord(eid,ename)
 	{
 		if (ename != "") {

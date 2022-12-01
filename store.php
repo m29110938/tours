@@ -421,7 +421,7 @@ if ($_SESSION['accname']==""){
   </div>
 
   <SCRIPT LANGUAGE=javascript>
-	<!--
+	
 	function ExportLog()
 	{
 		document.all.downloadlog.src="store.php";

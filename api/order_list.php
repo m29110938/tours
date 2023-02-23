@@ -41,8 +41,9 @@ $order_enddate = isset($_POST['order_enddate']) ? $_POST['order_enddate'] : '';
 					}
 					try {
 					
-						$sql2 = "SELECT oid,order_no,order_date, store_id, member_id, order_amount,coupon_no,discount_amount,pay_type,order_pay,pay_status,bonus_point,order_status FROM orderinfo where oid>0 ";
-						//$sql2 = $sql2." and coupon_enddate > NOW()";
+						$sql2 = "SELECT a.oid, a.order_no, a.order_date, a.store_id, b.store_name, a.member_id, a.order_amount, a.coupon_no, a.discount_amount,a.pay_type,a.order_pay,a.pay_status,a.bonus_point,a.order_status FROM orderinfo as a ";
+						$sql2 = $sql2." left join (select * from store) as b on a.store_id=b.sid ";
+						$sql2 = $sql2." where oid>0  ";
 						if ($order_startdate != "") {	
 							$sql2 = $sql2." and order_date >= '".$order_startdate." 00:00:00'";
 						}
@@ -57,12 +58,22 @@ $order_enddate = isset($_POST['order_enddate']) ? $_POST['order_enddate'] : '';
 						}						
 						$sql2 = $sql2." order by order_date desc";
 
-//echo $sql2;
+			//echo $sql2;
 						//$data = "";
 						if ($result2 = mysqli_query($link, $sql2)){
 							if (mysqli_num_rows($result2) > 0){
 								$rows = array();
 								while($row2 = mysqli_fetch_array($result2)){
+									$order_status = $row2['order_status'];
+									$pay_type = $row2['pay_type'];
+									if ($row2['store_name'] == null){
+										$row2['4'] = "";
+										$row2['store_name'] = "";
+									}
+									if ($order_status == "0" and $pay_type == "1"){
+										$row2['4'] = $row2['store_name']."(已取消)";
+										$row2['store_name'] = $row2['store_name']."(已取消)";
+									}
 									$rows[] = $row2;
 
 									//banner_subject, banner_date, banner_enddate, banner_descript	,banner_picture,banner_link

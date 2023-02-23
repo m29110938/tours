@@ -58,7 +58,9 @@ $sid = isset($_POST['sid']) ? $_POST['sid'] : '';
 										'2'   					=> $row2['contract_startdate'],
 										'contract_startdate'   	=> $row2['contract_startdate'],
 										'3'  					=> $row2['contract_enddate'],
-										'contract_enddate'  	=> $row2['contract_enddate']
+										'contract_enddate'  	=> $row2['contract_enddate'],
+										'4'  					=> $row2['bonus_status'],//1:下架,0:啟用
+										'bonus_status'  	=> $row2['bonus_status']
 									];									
 									//array_push($timeperiod, $data2);
 								}

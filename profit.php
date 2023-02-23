@@ -261,19 +261,20 @@ function Save_Log($conn,$a,$b,$c,$d,$e){
 							echo "	  <th>#</th>";
 							echo "	  <th>店家名稱</th>";
 							echo "	  <th>日期</th>";
-							echo "	  <th>付款<br/>狀態</th>";
 							echo "	  <th>實際支付<br/>金額</th>";
 							echo "	  <th>實際紅利<br/>支付金額</th>";						  
-							echo "	  <th>實際支付<br/>系統費用</th>";						  
+							echo "	  <th>實際支付<br/>系統費用</th>";				  
 							echo "	  <th>應付費用<br/>總額</th>";
-							echo "	  <th>應收紅利<br/>金額</th>";
-							echo "	  <th>對帳表<br/>下載</th>";							
+							echo "	  <th>是否結清<br/>款項</th>";		
+							echo "	  <th>電子發票<br/>下載</th>";		
+							echo "	  <th>應收紅利<br/>金額</th>";						
 						if ($_SESSION['authority']=="4"){							
 							echo "	  <th>付款</th>";		
 						}else{
 							echo "	  <th>是否收<br/>訖款項</th>";
 						}	
 							//echo "	  <th></th>";
+							echo "	  <th>對帳表<br/>下載</th>";	
 							echo "    </tr>";
 							echo "  </thead>";
 							echo "  <tbody>";
@@ -284,6 +285,10 @@ function Save_Log($conn,$a,$b,$c,$d,$e){
 									echo "    <td>".$row['store_name']."</td>";
 									echo "    <td>".date('Y-m-d', strtotime($row['start_date'])).'-'.date('Y-m-d', strtotime($row['end_date']))."</td>";
 
+									echo "    <td align='right'>".number_format($row['total_amountD'],1)."</td>";
+									echo "    <td align='right'>".number_format($row['total_amountG'],1)."</td>";
+									echo "    <td align='right'>".number_format($row['total_amountI'],1)."</td>";
+									echo "    <td align='right'>".number_format($row['total_amountJ'],1)."</td>";
 									switch ($row['billing_flag']) {
 										case 0:
 											echo "    <td>待付款</td>";
@@ -296,35 +301,32 @@ function Save_Log($conn,$a,$b,$c,$d,$e){
 									
 									}
 									//echo "    <td>".$row['total_amount']."</td>";
-									echo "    <td align='right'>".number_format($row['total_amountD'],1)."</td>";
-									echo "    <td align='right'>".number_format($row['total_amountG'],1)."</td>";
-									echo "    <td align='right'>".number_format($row['total_amountI'],1)."</td>";
-									echo "    <td align='right'>".number_format($row['total_amountJ'],1)."</td>";
+									echo "    <td align='right'>"."</td>";
 									echo "    <td align='right'>".number_format($row['total_amountK'],1)."</td>";
+									if ($_SESSION['authority']=="4"){
+										
+										if ($row['billing_flag'] == 0) {
+											echo "    <td>";
+											//echo "      <a href='javascript:GoEdit(".$row['pid'].")'><i class='fa fa-list'></i></a>";
+											echo "      <button type='button' class='btn btn-danger ml-auto' onclick='PayBill();'>付款</button>";
+											echo "    </td>";
+										}else {
+											echo "    <td>&nbsp;</td>";
+										}
+									}else{
+										if ($row['billing_flag'] == 0) {
+											echo "    <td>";
+											//echo "      <a href='javascript:GoEdit(".$row['pid'].")'><i class='fa fa-list'></i></a>";
+											echo "      <button type='button' class='btn btn-danger ml-auto' onclick='PayStatus(".$row['pid'].");'>確認</button>";
+											echo "    </td>";
+										}else {
+											echo "    <td>&nbsp;</td>";
+										}						
+									}
 									echo "    <td>";
 									//echo "		<button type='button' class='btn btn-warning ml-auto' onclick=ExportLog(".$row['pid'].");>下載</button>";
 									echo "		<button type='button' class='btn btn-warning ml-auto' onclick=ExportLog('".$row['store_id']."','".date('Y-m-d', strtotime($row['start_date']))."','".date('Y-m-d', strtotime($row['end_date']))."','".$row['urate']."');>下載</button>";
 									echo "    </td>";
-					if ($_SESSION['authority']=="4"){
-										
-									if ($row['billing_flag'] == 0) {
-										echo "    <td>";
-										//echo "      <a href='javascript:GoEdit(".$row['pid'].")'><i class='fa fa-list'></i></a>";
-										echo "      <button type='button' class='btn btn-danger ml-auto' onclick='PayBill();'>付款</button>";
-										echo "    </td>";
-									}else {
-										echo "    <td>&nbsp;</td>";
-									}
-					}else{
-									if ($row['billing_flag'] == 0) {
-										echo "    <td>";
-										//echo "      <a href='javascript:GoEdit(".$row['pid'].")'><i class='fa fa-list'></i></a>";
-										echo "      <button type='button' class='btn btn-danger ml-auto' onclick='PayStatus(".$row['pid'].");'>確認</button>";
-										echo "    </td>";
-									}else {
-										echo "    <td>&nbsp;</td>";
-									}						
-					}
 									echo "  </tr>";
 							}
 							//total

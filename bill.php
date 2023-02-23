@@ -39,10 +39,10 @@ if ($_SESSION['authority']=="4"){
     include("sidebar.php"); 
 	?>
 	<script>
-		document.querySelector('#mybonusphp').classList.add('active');
-		document.querySelector('#aa').classList.add('active');
-		document.querySelector('#a').classList.remove('collapsed');
-		document.querySelector('#collapseUtilities0').classList.add('show');
+		document.querySelector('#billphp').classList.add('active');
+		document.querySelector('#bb').classList.add('active');
+		document.querySelector('#b').classList.remove('collapsed');
+		document.querySelector('#collapseUtilities').classList.add('show');
 	</script>
     <!-- End of Sidebar -->
 
@@ -60,7 +60,7 @@ if ($_SESSION['authority']=="4"){
             <i class="fa fa-bars"></i>
           </button>
 			<i class="fas fa-fw fa-address-book"></i>
-			<h1 class="h5 mb-0 text-gray-800">紅利點數列表</h1>
+			<h1 class="h5 mb-0 text-gray-800">店家帳務管理</h1>
 		  
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -103,25 +103,19 @@ if ($_SESSION['authority']=="4"){
 			mysqli_query($link,"SET NAMES 'utf8'");
 			
 		
-			$membername = isset($_POST['member_name']) ? $_POST['member_name'] : '';
-			$membername  = mysqli_real_escape_string($link,$membername);
-			
-			$order_no = isset($_POST['order_no']) ? $_POST['order_no'] : '';
-			$order_no  = mysqli_real_escape_string($link,$order_no);		
-			
-			$SDate = isset($_POST['txtSDate']) ? $_POST['txtSDate'] : '';
-			$SDate  = mysqli_real_escape_string($link,$SDate);
-			$EDate = isset($_POST['txtEDate']) ? $_POST['txtEDate'] : '';
-			$EDate  = mysqli_real_escape_string($link,$EDate);
-
-			$bSDate = isset($_POST['bSDate']) ? $_POST['bSDate'] : '';
-			$bSDate  = mysqli_real_escape_string($link,$bSDate);
-			$bEDate = isset($_POST['bEDate']) ? $_POST['bEDate'] : '';
-			$bEDate  = mysqli_real_escape_string($link,$bEDate);
-			$memberid = isset($_POST['member_id']) ? $_POST['member_id'] : '';
-			$memberid  = mysqli_real_escape_string($link,$memberid);
 			$store_name = isset($_POST['store_name']) ? $_POST['store_name'] : '';
 			$store_name  = mysqli_real_escape_string($link,$store_name);
+			$tax_id = isset($_POST['tax_id']) ? $_POST['tax_id'] : '';
+			$tax_id  = mysqli_real_escape_string($link,$tax_id);
+			$manager_name = isset($_POST['manager_name']) ? $_POST['manager_name'] : '';
+			$manager_name  = mysqli_real_escape_string($link,$manager_name);
+			$bank_name = isset($_POST['bank_name']) ? $_POST['bank_name'] : '';
+			$bank_name  = mysqli_real_escape_string($link,$bank_name);
+			
+			// $SDate = isset($_POST['txtSDate']) ? $_POST['txtSDate'] : '';
+			// $SDate  = mysqli_real_escape_string($link,$SDate);
+			// $EDate = isset($_POST['txtEDate']) ? $_POST['txtEDate'] : '';
+			// $EDate  = mysqli_real_escape_string($link,$EDate);
 			//if ($SDate == "") {
 			//	$SDate = date("Y-m-d");;
 			//}
@@ -144,86 +138,80 @@ if ($_SESSION['authority']=="4"){
                   <h6 class="m-0 font-weight-bold text-primary">搜尋條件</h6>
                 </div>
 				  <div class="card-body">
-				    <form action="mybonus.php" method="Post" name='frm1' id='frm1' class="card">
+				    <form action="bill.php" method="Post" name='frm1' id='frm1' class="card">
 					<input type="hidden" name="act" id="act"  value=""/>
 					<input type="hidden" name="tid" id="tid"  value=""/>
-					<input type="hidden" name="page" id="page" value="1">
+					<input type="hidden" name="page" id="page" value="1">					
 					<div class="row">
-                        <div class="col-md-6 col-lg-2">
+                        <!-- <div class="col-md-6 col-lg-2">
 							  <div class="form-group">
-								<label class="form-label">消費日期(起)</label>
-								<!--<input type="text" name="field-name1" class="form-control" data-mask="0000/00/00" data-mask-clearifnotmatch="true" placeholder="yyyy/mm/dd" />-->
-								<input class="text-input small-input" type="date" name="txtSDate" id="txtSDate" value="<?=$SDate;?>" />
+								<label class="form-label">發佈日期(起)</label>
+								<input class="text-input small-input" type="date" name="txtSDate" id="txtSDate" value="<?=$SDate;?>" " />
 							  </div>						
 						</div>
                         <div class="col-md-6 col-lg-2">
 							  <div class="form-group">
-								<label class="form-label">消費日期(迄)</label>
-								<!--<input type="text" name="field-name2" class="form-control" data-mask="0000/00/00" data-mask-clearifnotmatch="true" placeholder="yyyy/mm/dd" />-->
+								<label class="form-label">發佈日期(迄)</label>
 								<input class="text-input small-input" type="date" name="txtEDate" id="txtEDate" value="<?=$EDate;?>" />
 							  </div>		
-						</div>		
-						<div class="col-md-6 col-lg-2">
-							  <div class="form-group">
-								<label class="form-label">到期日期(起)</label>
-								<!--<input type="text" name="field-name1" class="form-control" data-mask="0000/00/00" data-mask-clearifnotmatch="true" placeholder="yyyy/mm/dd" />-->
-								<input class="text-input small-input" type="date" name="bSDate" id="bSDate" value="<?=$bSDate;?>" />
-							  </div>						
-						</div>
-                        <div class="col-md-6 col-lg-2">
-							  <div class="form-group">
-								<label class="form-label">到期日期(迄)</label>
-								<!--<input type="text" name="field-name2" class="form-control" data-mask="0000/00/00" data-mask-clearifnotmatch="true" placeholder="yyyy/mm/dd" />-->
-								<input class="text-input small-input" type="date" name="bEDate" id="bEDate" value="<?=$bEDate;?>" />
-							  </div>		
-						</div>					
-						<div class="col-md-6 col-lg-2">
+						</div>					 -->
+						<div class="col-md-6 col-lg-3">
 						  <div class="form-group">
-							<label class="form-label">帳號:</label>
-							<div class="row align-items-center">
-							  <div class="col-auto">
-								<input type="text" id="member_id" name="member_id" class="form-control w-12" value="<?php echo $memberid; ?>">
-							  </div>
-							</div>
-						  </div>	
-						</div>
-						<div class="col-md-6 col-lg-2">
-						  <div class="form-group">
-							<label class="form-label">會員姓名:</label>
-							<div class="row align-items-center">
-							  <div class="col-auto">
-								<input type="text" id="member_name" name="member_name" class="form-control w-12" value="<?php echo $membername; ?>">
-							  </div>
-							</div>
-						  </div>	
-						</div>			
-						<div class="col-md-6 col-lg-2">
-						  <div class="form-group">
-							<label class="form-label">商店名稱:</label>
+							<label class="form-label">店家名稱:</label>
 							<div class="row align-items-center">
 							  <div class="col-auto">
 								<input type="text" id="store_name" name="store_name" class="form-control w-12" value="<?php echo $store_name; ?>">
+							</div>
+							</div>
+						  </div>	
+						</div>				
+						<div class="col-md-6 col-lg-3">
+						  <div class="form-group">
+							<label class="form-label">統一編號:</label>
+							<div class="row align-items-center">
+							  <div class="col-auto">
+								<input type="text" id="tax_id" name="tax_id" class="form-control w-12" value="<?php echo $tax_id; ?>">
 							  </div>
 							</div>
 						  </div>	
 						</div>				
+						<div class="col-md-6 col-lg-3">
+						  <div class="form-group">
+							<label class="form-label">負責人名稱:</label>
+							<div class="row align-items-center">
+							  <div class="col-auto">
+								<input type="text" id="manager_name" name="manager_name" class="form-control w-12" value="<?php echo $manager_name; ?>">
+							  </div>
+							</div>
+						  </div>	
+						</div>				
+						<div class="col-md-6 col-lg-3">
+						  <div class="form-group">
+							<label class="form-label">銀行名稱:</label>
+							<div class="row align-items-center">
+							  <div class="col-auto">
+								<input type="text" id="bank_name" name="bank_name" class="form-control w-12" value="<?php echo $bank_name; ?>">
+							  </div>
+							</div>
+						  </div>	
+						</div>	
 						<div class="col-md-6 col-lg-2">
 						  <div class="form-group">
 							  <label class="form-label">&nbsp;</label>
 							  <div class="text-center">
-								<button type="button" class='btn btn-success ml-auto' onclick='SubmitF();'>搜尋</button> &nbsp;<button type="reset" class="btn btn-info ml-auto">重設</button>
+								<button type="button" class='btn btn-info ml-auto' onclick='SubmitF();'>搜尋</button> &nbsp;<?php if ($_SESSION['authority']=="1"){ ?><button type="button" class="btn btn-success ml-auto" onclick='GoAddUser()'>新增</button> <?php } ?>
 							  </div>							
 						  </div>
 						</div>						
 					</div>					
-				</form>
+					</form>
 				  </div>
               </div>
 
               <!-- Approach -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">紅利點數列表</h6>
+              <h6 class="m-0 font-weight-bold text-primary">店家帳務管理列表</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -232,99 +220,48 @@ if ($_SESSION['authority']=="4"){
 				$havedata = 0;
 				//if ($act == 'Qry') {
 				
-					//$sql = "SELECT * FROM mybonus where bid>0 ";
-
-					$sql = "(SELECT a.*,b.order_date,b.store_id,b.order_pay,b.bonus_date as bonus_get_date,b.bonus_end_date,c.member_id as memberid,c.member_name,d.store_name FROM mybonus as a ";
-					$sql = $sql." inner join ( select mid,member_id,member_name from member) c on a.member_id = c.mid ";
-					$sql = $sql." inner join ( select order_no,order_date,store_id,order_pay,bonus_date,bonus_end_date from orderinfo) b on a.order_no = b.order_no ";
-					$sql = $sql." inner join ( select sid, store_name from store) d on b.store_id = d.sid ";
-					$sql = $sql."  where a.bid>0 and a.bonus_type in (1,2) ";
-					if (trim($membername) != "") {	
-						$sql = $sql." and member_name like '%".trim($membername)."%'";
-					}	
-					if (trim($order_no) != "") {	
-						$sql = $sql." and order_no like '%".trim($order_no)."%'";
-					}					
-					if ($SDate != "") {	
-						$sql = $sql." and a.bonus_date >= '".$SDate." 00:00:00'";
+					$sql = "SELECT * FROM store_bill as a";
+					
+					$sql = $sql." inner join (select * from store) as b on a.store_id = b.sid ";
+					$sql = $sql." where a.store_bill_trash=0 ";
+					if ($store_name != "") {	
+						$sql = $sql." and b.store_name like '%".$store_name."%'";
 					}
-					if ($EDate != "") {	
-						$sql = $sql." and a.bonus_date <= '".$EDate." 23:59:59'";
-					}		
+					if ($tax_id != "") {	
+						$sql = $sql." and a.tax_id like '%".$tax_id."%'";
+					}
+					if ($manager_name != "") {	
+						$sql = $sql." and a.manager_name like '%".$manager_name."%'";
+					}
+					if ($bank_name != "") {	
+						$sql = $sql." and a.bank_name like '%".$bank_name."%'";
+					}
 					// if ($SDate != "") {	
-					// 	$sql = $sql." and bonus_date >= '".$SDate." 00:00:00'";
+					// 	$sql = $sql." and banner_date >= '".$SDate." 00:00:00'";
 					// }
 					// if ($EDate != "") {	
-					// 	$sql = $sql." and bonus_date <= '".$EDate." 23:59:59'";
-					// }		
-					if ($memberid != "") {	
-						$sql = $sql." and c.member_id like '%".trim($memberid)."%'";
-					}
-					if ($store_name != "") {	
-						$sql = $sql." and store_name like '%".trim($store_name)."%'";
-					}
-
-					$sql = $sql." order by bonus_date )";
+					// 	$sql = $sql." and banner_date <= '".$EDate." 23:59:59'";
+					// }			
+					$sql = $sql." order by store_bill_created_at desc ";
 					// echo $sql;
-					$sql = $sql." UNION ( ";
-					$sql = $sql." SELECT a.*,a.bonus_date as order_date,'5358995' as store_id,'0' as order_pay, '0' as bonus_get_date, '0' as bonus_end_date, c.member_id as memberid, c.member_name,'' as store_name FROM mybonus as a ";
-					$sql = $sql." inner join ( select mid,member_id,member_name from member) c on a.member_id = c.mid where a.bid>0 and a.bonus_type = 3 ";
-					//$sql = $sql." inner join ( select order_no,order_date,store_id,order_pay from orderinfo) b on a.order_no = b.order_no where a.bid>0 and a.bonus_type in (1,2))";
-					if (trim($membername) != "") {	
-						$sql = $sql." and member_name like '%".trim($membername)."%'";
-					}	
-					if (trim($order_no) != "") {	
-						$sql = $sql." and order_no like '%".trim($order_no)."%'";
-					}					
-					if ($SDate != "") {	
-						$sql = $sql." and bonus_date >= '".$SDate." 00:00:00'";
-					}
-					if ($EDate != "") {	
-						$sql = $sql." and bonus_date <= '".$EDate." 23:59:59'";
-					}		
-					if ($memberid != "") {	
-						$sql = $sql." and c.member_id like '%".trim($memberid)."%'";
-					}	
-
-					$sql = $sql." order by bonus_date )";
-					//$sql = $sql." )";
-					// echo $sql;
-					//$sql = $sql." where a.bid>0 ";
-					
-					//if (trim($membername) != "") {	
-					//	$sql = $sql." and member_name like '%".trim($membername)."%'";
-					//}	
-					///if (trim($order_no) != "") {	
-					//	$sql = $sql." and order_no like '%".trim($order_no)."%'";
-					//}					
-					//if ($SDate != "") {	
-					//	$sql = $sql." and bonus_date >= '".$SDate." 00:00:00'";
-					//}
-					//if ($EDate != "") {	
-					//	$sql = $sql." and bonus_date <= '".$EDate." 23:59:59'";
-					//}			
-					//$sql = $sql." order by bonus_date ";
-					//echo $sql;
 					//exit;
 					$idx = 0;
-					  
 					if ($result = mysqli_query($link, $sql)){
 						if (mysqli_num_rows($result) > 0){
 							echo "<table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>";
 							echo "  <thead>";
 							echo "    <tr>";
-							echo "	  <th>#</th>";
-							echo "	  <th>帳號</th>";
-							echo "	  <th>姓名</th>";
-							// echo "	  <th>訂單編號</th>";
-							echo "	  <th>消費日期</th>";
-							echo "	  <th>商店名稱</th>";						  
-							echo "	  <th>消費金額</th>";						  
-							echo "	  <th>類別</th>";
-							echo "	  <th>紅利點數</th>";
-							echo "	  <th>紅利歸戶日期</th>";
-							echo "	  <th>紅利到期日期</th>";
-							echo "	  <th></th>";
+							echo "	  <th>No.</th>";
+							echo "	  <th>店家名稱</th>";
+							echo "	  <th>登記名稱</th>";
+							echo "	  <th>統一編號</th>";
+							echo "	  <th>負責人名稱</th>";
+							echo "	  <th>銀行代號</th>";
+							echo "	  <th>銀行名稱</th>";
+							echo "	  <th>帳務聯絡人</th>";
+							// echo "	  <th>有效期限</th>";						  
+							if (($_SESSION['authority']=="1")||($_SESSION['authority']=="2")){ echo "	  <th></th>"; }
+							if ($_SESSION['authority']=="1"){ echo "	  <th></th>"; }
 							echo "    </tr>";
 							echo "  </thead>";
 							echo "  <tbody>";
@@ -332,37 +269,24 @@ if ($_SESSION['authority']=="4"){
 									$idx = $idx + 1;				
 									echo "  <tr>";
 									echo "    <td>".$idx."</td>";
-									echo "    <td>".$row['memberid']."</td>";
-									echo "    <td>".$row['member_name']."</td>";
-									// echo "    <td>".$row['order_no']."</td>";
-									echo "    <td>".date('Y-m-d', strtotime($row['order_date']))."</td>";
-									echo "    <td align=right>".$row['store_name']."</td>";
-									echo "    <td align=right>".$row['order_pay']."</td>";
-									//echo "    <td>".$row['bonus_type']."</td>";
-										switch ($row['bonus_type']) {
-											case 1:
-												echo "    <td>消費累積</td>";
-												break;
-											case 2:
-												echo "    <td>消費折抵</td>";
-												break;
-											case 3:
-												echo "    <td>平台贈點</td>";
-												break;
-											default:
-												echo "    <td>&nbsp;</td>";
-										}			
-									if($row['bonus_type'] == 2){
-										$sign = "-";
+									echo "    <td>".$row['store_name']."</td>";
+									echo "    <td>".$row['register_name']."</td>";
+									echo "    <td>".$row['tax_id']."</td>";
+									echo "    <td>".$row['manager_name']."</td>";
+									echo "    <td>".$row['bank_no']."</td>";
+									echo "    <td>".$row['bank_name']."</td>";
+									echo "    <td>".$row['name']."</td>";
+									// echo "    <td>".$row['banner_enddate']."</td>";
+									if (($_SESSION['authority']=="1")||($_SESSION['authority']=="2")){
+										echo "    <td>";
+										echo "      <a href='javascript:GoEdit(".$row['bid'].")'><i class='fa fa-edit'></i></a>";
+										echo "    </td>";
 									}
-									echo "    <td align=right>".$sign.$row['bonus']."</td>";
-									$sign = "";
-									echo "    <td>".date('Y-m-d', strtotime($row['bonus_get_date']))."</td>";
-									echo "    <td>".date('Y-m-d', strtotime($row['bonus_end_date']))."</td>";						
-									echo "    <td>";
-									echo "      <a href='javascript:GoEdit(".$row['bid'].")'><i class='fa fa-list'></i></a>";
-									echo "    </td>";
-                    
+									if ($_SESSION['authority']=="1"){
+										echo "    <td>";
+										echo "  	<a href='javascript:GoDel(".$row['bid'].")'><i class='fa fa-trash'></i></a>";					
+										echo "    </td>   ";  
+									}
 									echo "  </tr>";
 							}
 							echo "  </tbody>";
@@ -377,20 +301,16 @@ if ($_SESSION['authority']=="4"){
 					}
 				//}
 				mysqli_close($link);	
-				?>	
-				
-				</div>
+				?>			  
+
+				  </div>
 				<?php
 					if ($act == 'Qry'){
 						if($havedata == 1){  ?>
-				  <div class="col-md-12 ">
-						<br/>
-						<button type="button" onclick="ExportLog();" class="btn btn-info ml-auto">匯出</button>
-				  </div>
-					<?php }else{ echo "沒有符合條件的資料!";}} ?>				
-				</div>	
-				<!-- <?php echo "123"?> -->
-		    </div>
+
+					<?php }else{ echo "沒有符合條件的資料!";}} ?>	
+				</div>
+			  </div>
 
             </div>
           </div>
@@ -440,22 +360,40 @@ if ($_SESSION['authority']=="4"){
       </div>
     </div>
   </div>
+
   <SCRIPT LANGUAGE=javascript>
-	
 	function ExportLog()
 	{
-		document.all.downloadlog.src="mybonus.php";
+		document.all.downloadlog.src="sysuser.php";
 	}	
+	function GoAddUser()
+	{	
+		document.getElementById("act").value = 'Add';
+		document.frm1.action="addbill.php";
+		//self.location.replace("addbanner.php");
+		document.frm1.submit();
+	}
 	//GoEdit()
 	function GoEdit(id)
 	{	
 		document.getElementById("act").value = 'Edit';
 		document.getElementById("tid").value = id;
 		//alert(id);
-		document.frm1.action="mybonusdetail.php";	
+		document.frm1.action="editbill.php";	
+		//self.location.replace("editbanner.php");	
 		document.frm1.submit();
 	}
-
+	function GoDel(id)
+	{	
+		if (confirm('確定要刪除這筆資料嗎?')) {
+			document.getElementById("act").value = 'Del';
+			document.getElementById("tid").value = id;
+			//alert(id);
+			document.frm1.action="billdel.php";	
+			//self.location.replace("bannerdel.php");	
+			document.frm1.submit();
+		}
+	}	
 	function Logout(){
 		//alert("登出系統!");
 		self.location.replace('logout.php');
@@ -472,7 +410,7 @@ if ($_SESSION['authority']=="4"){
 		document.frm1.submit();
 	}	
 	//-->
-  </SCRIPT>
+  </SCRIPT>		
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

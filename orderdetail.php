@@ -141,6 +141,7 @@ if ($_SESSION['accname']==""){
 							
 							$bonus_get = $row['bonus_get'];
 							$bonus_date = $row['bonus_date'];
+							$bonus_end_date = $row['bonus_end_date'];
 
 							//$pay_type = $row['pay_type'];
 							switch ($row['pay_type']) {
@@ -161,6 +162,9 @@ if ($_SESSION['accname']==""){
 									break;
 								case 1:
 									$pay_status = "已付款";
+									break;
+								case 9:
+									$pay_status = "已退款";
 									break;
 								default:
 									$pay_status = "處理中";
@@ -198,13 +202,13 @@ if ($_SESSION['accname']==""){
 						<td width="10%">商圈名稱:</td><td width="20%"><?php echo $shoppingarea; ?></td><td width="10%">訂單狀態:</td><td width="20%"><?php echo $orderstatus; ?></td><td width="10%">紅利點數折抵:</td><td><?php echo $bonus_point; ?></td>
 					</tr>
 					<tr>
-						<td>商店名稱:</td><td><?php echo $store_name; ?></td><td>付款方式:</td><td><?php echo $pay_type; ?></td><td>訂單贈點:</td><td><?php echo $bonus_get; ?></td>
+						<td>商店名稱:</td><td><?php echo $store_name; ?></td><td>付款方式:</td><td><?php echo $pay_type; ?></td><td>紅利贈點:</td><td><?php echo $bonus_get; ?></td>
 					</tr>
 					<tr>
-						<td>訂單時間:</td><td><?php echo $order_date; ?></td><td>訂單金額:</td><td>NT <?php echo $order_amount; ?></td><td>贈點日期:</td><td><?php echo $bonus_date; ?></td>
+						<td>訂單時間:</td><td><?php echo $order_date; ?></td><td>訂單金額:</td><td>NT <?php echo number_format($order_amount); ?></td><td>紅利歸戶日期:</td><td><?php echo $bonus_date; ?></td>
 					</tr>
 					<tr>
-						<td>訂單編號:</td><td><?php echo $order_no; ?></td><td>實付金額:</td><td>NT <?php echo $order_pay; ?></td><td>&nbsp;</td><td>&nbsp;</td>
+						<td>訂單編號:</td><td><?php echo $order_no; ?></td><td>實付金額:</td><td>NT <?php echo number_format($order_pay); ?></td><td>紅利到期日期:</td><td><?php echo $bonus_end_date; ?></td>
 					</tr>
 					</table>
 				</div>
@@ -269,7 +273,7 @@ if ($_SESSION['accname']==""){
 						<tr>
 							<td><?php echo $order_no; ?></td>
 							<td><?php echo $order_date; ?></td>
-							<td><?php echo $order_amount; ?></td>
+							<td><?php echo number_format($order_amount); ?></td>
 							<td><?php echo $discount_amount; ?></td>
 							<td><?php echo $pay_type; ?></td>
 							<td><?php echo $pay_status; ?></td>

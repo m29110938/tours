@@ -4,7 +4,7 @@
 	//	header("Location: main.php");
 	//}
 	$act = isset($_POST['act']) ? $_POST['act'] : '';
-	if ($act == 'Cancel') {
+	if ($act == 'Del') {
 		$host = 'localhost';
 		$user = 'tours_user';
 		$passwd = 'tours0115';
@@ -17,24 +17,17 @@
 		$tid = isset($_POST['tid']) ? $_POST['tid'] : '';
 		
 		if ($tid != "") {
-			$sql="update orderinfo set order_status=0,pay_status=9,order_updated_at=NOW() where oid=$tid;";
+			$sql="update store_bill set store_bill_trash=1,store_bill_updated_at=NOW() where bid=$tid;";
+
 			//echo $sql;
 			//exit;
 			mysqli_query($link,$sql) or die(mysqli_error($link));
-
-			// 券取消使用
-
-			// 點數返回
-
-			// member 更新點數
-			
-			// 金額要確認有退? 刷卡刷退...
 			
 			mysqli_close($link);
 			// once saved, redirect back to the view page
-			header("Location: order.php");
+			header("Location: bill.php");
 		}else{
-			header("Location: order.php");
+			header("Location: bill.php");
 		}
 
 	}else{

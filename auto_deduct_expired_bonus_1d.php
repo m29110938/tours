@@ -40,9 +40,12 @@
 
 
 				// 一整年的總紅利折抵
-				// 要改時間
+				// 要改時間 新增訂單狀態及付款狀態判斷、點數入帳時間調整為訂單時間
 				$sql1 = "SELECT member_id,SUM(bonus_point) as bonusPoint FROM `orderinfo`   ";
-				$sql1 = $sql1." WHERE bonus_date BETWEEN '".$year1.'-'.$today."' AND '".$year.'-'.$today."' and member_id = $mid";
+				$sql1 = $sql1." WHERE DATE(order_date) >= '".$year1.'-'.$today."' AND DATE(order_date) <= '".$year.'-'.$today."' and member_id = $mid and order_status=1 and pay_status=1 ";
+				// 要改時間
+				// $sql1 = "SELECT member_id,SUM(bonus_point) as bonusPoint FROM `orderinfo`   ";
+				// $sql1 = $sql1." WHERE bonus_date BETWEEN '".$year1.'-'.$today."' AND '".$year.'-'.$today."' and member_id = $mid";
 				// echo $sql1;
 				$sql1 = $sql1." GROUP BY member_id";
 				$result1 = mysqli_query($link, $sql1);
@@ -56,7 +59,7 @@
 				$order_no = date_timestamp_get($date).$rand;
 
 				if (($endBonusGet - $bonusPoint) > 0 ){
-					echo "還有剩下的點數過期";
+					// echo "還有剩下的點數過期";
 					
 					$addBonus = $endBonusGet - $bonusPoint;  // 點數：給消費者看，-過期
 					$addBonus1 = $bonusPoint - $endBonusPoint;  // 點數：隱藏，+被多抵銷的
@@ -75,7 +78,7 @@
 					$sql3 = $sql3." ('$order_no',0,1,'$mid',0,0,0,0,1,0,0,1,NOW(),NOW(),'$bonusEndDate1','$addBonus1');";
 					mysqli_query($link,$sql3) or die(mysqli_error($link));
 					// 給消費者看，-過期
-					// store_id ： 測試版：129, 正式版：184
+					// store_id ： 測試版： 129, 正式版： 184
 					$sql4 = "INSERT INTO orderinfo (order_no,store_id,tour_guide,member_id,order_amount,discount_amount,pay_type,order_pay,pay_status,bonus_point,urate,order_status,order_created_at,bonus_date,bonus_end_date,bonus_get) VALUES ";
 					$sql4 = $sql4." ('$order_no',184,1,'$mid',0,0,-1,0,0,0,0,0,'$bonusEndDate','$bonusEndDate','$bonusEndDate',-'$addBonus');";
 					mysqli_query($link,$sql4) or die(mysqli_error($link));
@@ -85,7 +88,7 @@
 
 				}
 				elseif (($endBonusGet - $bonusPoint) < 0 ){
-					echo "沒有剩下點數過期，並多扣了一些";
+					// echo "沒有剩下點數過期，並多扣了一些";
 					
 					$addBonus = $endBonusGet - $endBonusPoint;
 					// store_id: 0
@@ -101,7 +104,7 @@
 					$sql3 = $sql3." ('$order_no',0,1,'$mid',0,0,0,0,1,0,0,1,NOW(),NOW(),'$bonusEndDate','$addBonus');";
 					mysqli_query($link,$sql3) or die(mysqli_error($link));
 				}else{
-					echo "剛好沒有剩下";
+					// echo "剛好沒有剩下";
 				}
 
 				// $date = date_create();
@@ -134,9 +137,3 @@
 	}
 
 ?>
-
-
-
-
-
-

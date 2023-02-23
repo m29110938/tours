@@ -151,7 +151,7 @@ $bonus_point = isset($_POST['bonus_point']) ? $_POST['bonus_point'] : '0';
 
 												// store_service = 1 二週後發點; store_service = 2 馬上發點
 												if (intval($order_pay) > 0) {
-													$sql5="SELECT a.*,b.bonus_mode,c.* from orderinfo a inner join ( select store_id, bid,bonus_mode from bonus_store) as b ON a.store_id= b.store_id inner join ( select * from bonus_setting) as c ON b.bid= c.bid where order_no='".$order_no."' ";
+													$sql5="SELECT a.*,b.bonus_mode,c.* from orderinfo a inner join ( select store_id, bid,bonus_mode from bonus_store) as b ON a.store_id= b.store_id inner join ( select * from bonus_setting) as c ON b.bid= c.bid where order_no='".$order_no."' and c.bonus_status = 0 ";
 													//echo $sql5;
 													if ($result5 = mysqli_query($link, $sql5)){
 														if (mysqli_num_rows($result5) > 0){
@@ -355,7 +355,7 @@ $bonus_point = isset($_POST['bonus_point']) ? $_POST['bonus_point'] : '0';
 												//}
 												// store_service = 1 二週後發點; store_service = 2 馬上發點
 												if (intval($order_pay) > 0) {
-													$sql5="SELECT a.*,b.bonus_mode,c.* from orderinfo a inner join ( select store_id, bid,bonus_mode from bonus_store) as b ON a.store_id= b.store_id inner join ( select * from bonus_setting) as c ON b.bid= c.bid where order_no='".$order_no."' ";
+													$sql5="SELECT a.*,b.bonus_mode,c.* from orderinfo a inner join ( select store_id, bid,bonus_mode from bonus_store) as b ON a.store_id= b.store_id inner join ( select * from bonus_setting) as c ON b.bid= c.bid where order_no='".$order_no."' and c.bonus_status = 0 ";
 													//echo $sql5;
 													if ($result5 = mysqli_query($link, $sql5)){
 														if (mysqli_num_rows($result5) > 0){

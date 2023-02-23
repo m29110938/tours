@@ -85,7 +85,7 @@ $sid = isset($_POST['sid']) ? $_POST['sid'] : '0';
 
 
 									// get 加入店家會員禮
-									$sql6 = "SELECT * FROM coupon where coupon_trash=0 and coupon_type=3 and coupon_status=1 and coupon_storeid='$sid' ";
+									$sql6 = "SELECT * FROM coupon where coupon_trash=0 and coupon_type=3 and coupon_status=1 and coupon_storeid='$sid' and coupon_number>0 ";
 									if ($result6 = mysqli_query($link, $sql6)){
 										if (mysqli_num_rows($result6) > 0){
 											// login ok
@@ -94,12 +94,16 @@ $sid = isset($_POST['sid']) ? $_POST['sid'] : '0';
 											while($row6 = mysqli_fetch_array($result6)){
 												//$coupon_id2 = $row6['coupon_id'];
 												$cid2 = $row6['cid'];
+												$coupon_number_1 = $row6['coupon_number']-1;
 												// 店家會員禮
 												$coupon_no2 = uniqid();
 												$sql7="INSERT INTO mycoupon (mid, coupon_no, cid,coupon_id ,coupon_name, coupon_type, coupon_description, coupon_startdate, coupon_enddate, coupon_status, coupon_rule, coupon_discount, discount_amount, coupon_storeid, coupon_for, coupon_picture) ";
 												$sql7=$sql7." select $mid,'$coupon_no2',cid,coupon_id ,coupon_name, coupon_type, coupon_description, coupon_startdate, coupon_enddate, coupon_status, coupon_rule, coupon_discount, discount_amount, coupon_storeid, coupon_for, coupon_picture from coupon where cid = '".$cid2."'";
 
 												mysqli_query($link,$sql7) or die(mysqli_error($link));
+
+												$sql8 = "update coupon set coupon_number=$coupon_number_1 where cid='$cid2'";
+												mysqli_query($link,$sql8) or die(mysqli_error($link));
 									
 											}
 										}

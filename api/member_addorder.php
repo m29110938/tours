@@ -19,6 +19,11 @@ $order_pay = isset($_POST['order_pay']) ? $_POST['order_pay'] : '0';
 $bonus_point = isset($_POST['bonus_point']) ? $_POST['bonus_point'] : '0';
 $booking_no = isset($_POST['booking_no']) ? $_POST['booking_no'] : '';
 
+
+
+date_default_timezone_set('Asia/Taipei');
+$today = date("Y-m-d");
+
 //add_order(member_id,store_id,coupon_no,order_amount,discount_amount,pay_type,order_pay,order_status
 
 
@@ -119,7 +124,7 @@ $booking_no = isset($_POST['booking_no']) ? $_POST['booking_no'] : '';
 												if (intval($bonus_point) > 0) {
 													// 更新訂單紅利時間及到期時間
 													$month = date('m');
-													if ($month >= 1 || $month <= 6){
+													if ($month >= 1 && $month <= 6){
 														$sql3="update orderinfo set bonus_date=NOW(),bonus_end_date= CONCAT(EXTRACT(YEAR FROM NOW()),'-12-31 23:59:59') where order_no=$order_no";
 													}else{
 														$sql3="update orderinfo set bonus_date=NOW(),bonus_end_date= CONCAT(EXTRACT(YEAR FROM NOW())+1,'-06-30 23:59:59') where order_no=$order_no";
@@ -152,7 +157,7 @@ $booking_no = isset($_POST['booking_no']) ? $_POST['booking_no'] : '';
 												// $order_pay 應付金額
 												// store_service = 1 二週後發點; store_service = 2 馬上發點
 												if (intval($order_pay) > 0) {
-													$sql5="SELECT a.*,b.bonus_mode,c.* from orderinfo a inner join ( select store_id, bid,bonus_mode from bonus_store) as b ON a.store_id= b.store_id inner join ( select * from bonus_setting) as c ON b.bid= c.bid where order_no='".$order_no."' ";
+													$sql5="SELECT a.*,b.bonus_mode,c.* from orderinfo a inner join ( select store_id, bid,bonus_mode from bonus_store) as b ON a.store_id= b.store_id inner join ( select * from bonus_setting) as c ON b.bid= c.bid where order_no='".$order_no."' and c.bonus_status = 0 and c.contract_startdate <= '$today' and c.contract_enddate >=  '$today' ";
 													//echo $sql5;
 													if ($result5 = mysqli_query($link, $sql5)){
 														if (mysqli_num_rows($result5) > 0){
@@ -223,7 +228,7 @@ $booking_no = isset($_POST['booking_no']) ? $_POST['booking_no'] : '';
 																	// date_default_timezone_set('Asia/Taipei');
 																	// $date2 = new DateTime(date("Y-m-d"));
 																	$month = date('m');
-																	if ($month >= 1 || $month <= 6){
+																	if ($month >= 1 && $month <= 6){
 																		$sql3="update orderinfo set urate=$user_rate,bonus_get=$bonus,bonus_date=NOW(),bonus_end_date= CONCAT(EXTRACT(YEAR FROM NOW()),'-12-31 23:59:59') where order_no=$order_no";
 																	}else{
 																		$sql3="update orderinfo set urate=$user_rate,bonus_get=$bonus,bonus_date=NOW(),bonus_end_date= CONCAT(EXTRACT(YEAR FROM NOW())+1,'-06-30 23:59:59') where order_no=$order_no";
@@ -256,7 +261,7 @@ $booking_no = isset($_POST['booking_no']) ? $_POST['booking_no'] : '';
 																	$year1 = $date1->format('Y')+1;
 																	$month = $date1->format('m');
 																	// $month = date('m');
-																	if ($month >= 1 || $month <= 6){
+																	if ($month >= 1 && $month <= 6){
 																		$sql3="update orderinfo set urate=$user_rate,bonus_get=$bonus,bonus_date='".$date1->format('Y-m-d')." 00:05:00',bonus_end_date= '".$year."-12-31 23:59:59' where order_no=$order_no";
 																	}else{
 																		$sql3="update orderinfo set urate=$user_rate,bonus_get=$bonus,bonus_date='".$date1->format('Y-m-d')." 00:05:00',bonus_end_date= '".$year1."-06-30 23:59:59' where order_no=$order_no";
@@ -339,7 +344,7 @@ $booking_no = isset($_POST['booking_no']) ? $_POST['booking_no'] : '';
 												if (intval($bonus_point) > 0) {
 													// 更新訂單紅利時間及到期時間
 													$month = date('m');
-													if ($month >= 1 || $month <= 6){
+													if ($month >= 1 && $month <= 6){
 														$sql3="update orderinfo set bonus_date=NOW(),bonus_end_date= CONCAT(EXTRACT(YEAR FROM NOW()),'-12-31 23:59:59') where order_no=$order_no";
 													}else{
 														$sql3="update orderinfo set bonus_date=NOW(),bonus_end_date= CONCAT(EXTRACT(YEAR FROM NOW())+1,'-06-30 23:59:59') where order_no=$order_no";
@@ -371,7 +376,7 @@ $booking_no = isset($_POST['booking_no']) ? $_POST['booking_no'] : '';
 												// $order_pay 應付金額
 												// store_service = 1 二週後發點; store_service = 2 馬上發點
 												if (intval($order_pay) > 0) {
-													$sql5="SELECT a.*,b.bonus_mode,c.* from orderinfo a inner join ( select store_id, bid,bonus_mode from bonus_store) as b ON a.store_id= b.store_id inner join ( select * from bonus_setting) as c ON b.bid= c.bid where order_no='".$order_no."' ";
+													$sql5="SELECT a.*,b.bonus_mode,c.* from orderinfo a inner join ( select store_id, bid,bonus_mode from bonus_store) as b ON a.store_id= b.store_id inner join ( select * from bonus_setting) as c ON b.bid= c.bid where order_no='".$order_no."' and c.bonus_status = 0 and c.contract_startdate <= '$today' and c.contract_enddate >=  '$today'";
 													//echo $sql5;
 													if ($result5 = mysqli_query($link, $sql5)){
 														if (mysqli_num_rows($result5) > 0){
@@ -442,7 +447,7 @@ $booking_no = isset($_POST['booking_no']) ? $_POST['booking_no'] : '';
 																	// date_default_timezone_set('Asia/Taipei');
 																	// $date2 = new DateTime(date("Y-m-d"));
 																	$month = date('m');
-																	if ($month >= 1 || $month <= 6){
+																	if ($month >= 1 && $month <= 6){
 																		$sql3="update orderinfo set urate=$user_rate,bonus_get=$bonus,bonus_date=NOW(),bonus_end_date= CONCAT(EXTRACT(YEAR FROM NOW()),'-12-31 23:59:59') where order_no=$order_no";
 																	}else{
 																		$sql3="update orderinfo set urate=$user_rate,bonus_get=$bonus,bonus_date=NOW(),bonus_end_date= CONCAT(EXTRACT(YEAR FROM NOW())+1,'-06-30 23:59:59') where order_no=$order_no";
@@ -486,7 +491,7 @@ $booking_no = isset($_POST['booking_no']) ? $_POST['booking_no'] : '';
 																	$year1 = $date1->format('Y')+1;
 																	$month = $date1->format('m');
 																	// $month = date('m');
-																	if ($month >= 1 || $month <= 6){
+																	if ($month >= 1 && $month <= 6){
 																		$sql3="update orderinfo set urate=$user_rate,bonus_get=$bonus,bonus_date='".$date1->format('Y-m-d')." 00:05:00',bonus_end_date= '".$year."-12-31 23:59:59' where order_no=$order_no";
 																	}else{
 																		$sql3="update orderinfo set urate=$user_rate,bonus_get=$bonus,bonus_date='".$date1->format('Y-m-d')." 00:05:00',bonus_end_date= '".$year1."-06-30 23:59:59' where order_no=$order_no";

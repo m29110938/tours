@@ -498,7 +498,7 @@ if ($period == 1) {
   <!-- Page level custom scripts -->
 
   <SCRIPT LANGUAGE=javascript>
-	<!--
+	
 
 	function SubmitF(period)
 	{

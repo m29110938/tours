@@ -12,9 +12,8 @@
 		$push_body = str_replace($vowels,"\n",$push_body);
 		$curl = curl_init();
 		curl_setopt_array($curl, array(
-			// CURLOPT_URL => 'https://ddotapp.com.tw/tours/api/push_tomember.php',
-			CURLOPT_URL => 'https://tripspottest.jotangi.net/tours/api/push_tomember.php',
-			// CURLOPT_URL => 'http://localhost/tours/api/push_tomember.php',
+			// CURLOPT_URL => 'https://ddotapp.com.tw/tours/api/push_tomember.php', //正式
+			CURLOPT_URL => 'https://tripspottest.jotangi.net/tours/api/push_tomember.php', // 測試
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_ENCODING => '',
 			CURLOPT_MAXREDIRS => 10,
@@ -38,16 +37,26 @@
 	// $year = 2024;
 	// $year1 = $year-1;
 	date_default_timezone_set('Asia/Taipei');
-	$today = date("m");
-	$sdate = date("Y-m-01 00:00:00");
-	$edate = date('Y-m-t 23:59:59');
+	$month = isset($_GET['month']) ? $_GET['month'] : ''; //2022-12
+	
+	$month  = mysqli_real_escape_string($link,$month);
+	if ( $month == ""){
+		echo "沒有填寫日期，請再網址後加上?month=月份，參考：?month=2022-01";
+		exit;
+	}
+	$sdate = date('Y-m-d', strtotime("{$month}"))." 00:00:00"; //2022-12-01 00:00:00
+	$edate = date('Y-m-d', strtotime("{$month} +1 month -1 day"))." 23:59:59"; //2022-12-31 23:59:59
+	
+	// $today = date("m");
+	// $sdate = date("Y-m-01 00:00:00");
+	// $edate = date('Y-m-t 23:59:59');
 	
 	// $today = "09";
 	// $sdate = "2022-10-01 00:00:00";
 	// $edate = "2022-10-31 23:59:59";
 
+	// echo $sdate."<br>";
 	// echo $edate."<br>";
-	// echo $today."<br>";
 	// $year = date("Y");
 	// $year1 = date("Y")-1;
 

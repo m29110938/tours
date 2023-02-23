@@ -46,6 +46,7 @@
 		  <div class="bg-white py-2 collapse-inner rounded">
 			<a class="collapse-item" id="storephp" href="store.php">店家設定</a>
 			<a class="collapse-item" id="storememberphp" href="storemember.php">店家會員</a>
+			<a class="collapse-item" id="billphp" href="bill.php">店家帳務管理</a>
 			<a class="collapse-item" id="pushphp" href="push.php">推播訊息</a>
 			<?php if ($_SESSION['authority']!="4"){  ?>
 			<a class="collapse-item" id="storetypephp" href="storetype.php">類別設定</a>

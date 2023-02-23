@@ -22,12 +22,12 @@ $urate = isset($_POST['urate']) ? $_POST['urate'] : '';
 		mysqli_query($conn,"SET NAMES 'utf8'");
 			
 		//$sql3 = "SELECT * FROM orderinfo ";
-		$sql3 = " SELECT f.bid,f.sys_rate1,f.sys_rate2,a.*,b.store_name, c.member_id as memberid,c.member_name,d.shopping_area as shoppingarea FROM orderinfo as a  ";
+		$sql3 = " SELECT f.bid,f.sys_rate1,f.sys_rate2,f.marketing_rate1,f.marketing_rate2,a.*,b.store_name, c.member_id as memberid,c.member_name,d.shopping_area as shoppingarea FROM orderinfo as a  ";
 		$sql3 = $sql3." inner join ( select sid,store_id,store_name,shopping_area from store) as b ON b.sid= a.store_id ";
 		$sql3 = $sql3." inner join ( select aid,shopping_area from shopping_area) as d ON d.aid= b.shopping_area ";
 		$sql3 = $sql3." inner join ( select mid,member_id,member_name from member) c on a.member_id = c.mid ";
     $sql3 = $sql3." inner join ( select store_id,bid from bonus_store) as e on a.store_id = e.store_id  ";
-    $sql3 = $sql3." inner join ( select sys_rate1,sys_rate2,bid from bonus_setting) as f on e.bid = f.bid  ";
+    $sql3 = $sql3." inner join ( select sys_rate1,sys_rate2,marketing_rate1,marketing_rate2,bid from bonus_setting) as f on e.bid = f.bid  ";
 		
 		$sql3 = $sql3." where a.order_date > '".$sdate." 00:00:00' and a.order_date < '".$edate." 23:59:59' and a.store_id=$sid and a.order_status=1 and a.pay_status=1";
 		// echo $sql3;
@@ -51,7 +51,9 @@ $urate = isset($_POST['urate']) ? $_POST['urate'] : '';
 					$store_name = $row2['store_name'];
           $sys_rate1 = $row2['sys_rate1'];
           $sys_rate2 = $row2['sys_rate2'];
-          $total = $sys_rate1+$sys_rate2;
+          $marketing_rate1 = $row2['marketing_rate1'];
+          $marketing_rate2 = $row2['marketing_rate2'];
+          $total = $sys_rate1+$sys_rate2+$marketing_rate1+$marketing_rate2;
           // echo $total;
           // $sql2 = ""
 					break;
@@ -508,23 +510,23 @@ rt
  </tr>
  <tr height=31 style='mso-height-source:userset;height:23.4pt'>
   <td height=31 colspan=5 style='height:23.4pt;mso-ignore:colspan'></td>
-  <td colspan=3 class=xl72>本期店家應付費用</td>
-  <td class=xl73></td>
-  <td colspan=2 class=xl72><?php echo number_format($total_amountJ);?></td>
+  <td colspan=3 class=xl76 style="border-top:none;">本期店家應付費用</td>
+  <td class=xl77 style="border-top:none;"></td>
+  <td colspan=2 class=xl76 style="border-top:none;"><?php echo number_format($total_amountJ);?>元</td>
   <td class=xl74 colspan=3 style='mso-ignore:colspan'><span
-  style='mso-spacerun:yes'>&nbsp;</span>系統開立發票金額</td>
+  style='mso-spacerun:yes'>&nbsp;</span>系統開立發票金額(註3)</td>
   <td colspan=5 style='mso-ignore:colspan'></td>
  </tr>
  <tr height=29 style='mso-height-source:userset;height:21.6pt'>
   <td height=29 colspan=5 style='height:21.6pt;mso-ignore:colspan'></td>
-  <td colspan=3 class=xl75>本期店家應收金額</td>
-  <td class=xl71>–<ruby><font class="font11"><rt class=font11></rt></font></ruby></td>
-  <td colspan=2 class=xl75><?php echo number_format($total_amountK);?></td>
+  <td colspan=3 class=xl76 style="border-top:none;">本期店家應收金額</td>
+  <td class=xl77 style="border-top:none;"><ruby><font class="font11"><rt class=font11></rt></font></ruby></td>
+  <td colspan=2 class=xl76 style="border-top:none;"><?php echo number_format($total_amountK);?>元</td>
   <td class=xl74 colspan=3 style='mso-ignore:colspan'><span
-  style='mso-spacerun:yes'>&nbsp;</span>店家開立發票金額</td>
+  style='mso-spacerun:yes'>&nbsp;</span>店家開立發票金額(註4)</td>
   <td colspan=5 style='mso-ignore:colspan'></td>
  </tr>
- <tr height=44 style='mso-height-source:userset;height:33.0pt'>
+ <!-- <tr height=44 style='mso-height-source:userset;height:33.0pt'>
   <td height=44 colspan=5 style='height:33.0pt;mso-ignore:colspan'></td>
   <td colspan=3 class=xl76>本期結算金額</td>
   <td class=xl77 style='border-top:none'>　</td>
@@ -532,7 +534,7 @@ rt
   <td class=xl74 colspan=3 style='mso-ignore:colspan'><span
   style='mso-spacerun:yes'>&nbsp;</span><?php if ($total_amountJ >= $total_amountK) echo '店家應匯款金額'; else echo '店家應收款金額'; ?></td>
   <td colspan=5 style='mso-ignore:colspan'></td>
- </tr>
+ </tr> -->
  <tr height=22 style='height:16.8pt'>
   <td height=22 colspan=11 style='height:16.8pt;mso-ignore:colspan'></td>
   <td colspan=8 rowspan=12 height=276 width=501 style='mso-ignore:colspan-rowspan;

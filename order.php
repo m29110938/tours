@@ -264,7 +264,7 @@ function Save_Log($conn,$a,$b,$c,$d,$e){
 					$sql = $sql." inner join ( select sid,store_id,store_name from store) as b ON b.sid= a.store_id ";
 					$sql = $sql." inner join ( select mid,member_id,member_name from member) c on a.member_id = c.mid ";
 					
-					$sql = $sql." where a.oid>0 ";
+					$sql = $sql." where a.oid>0 and b.store_name != '紅利到期' and b.store_name != '點點商城' and b.store_name != '點點商城退款'";
 
 					if ($_SESSION['authority']=="4"){
 						$sql = $sql." and b.sid=".$_SESSION['loginsid']."";
@@ -344,6 +344,9 @@ function Save_Log($conn,$a,$b,$c,$d,$e){
 											break;
 										case 1:
 											echo "    <td>已付款</td>";
+											break;
+										case 9:
+											echo "    <td>已退款</td>";
 											break;
 										default:
 											echo "    <td>處理中</td>";

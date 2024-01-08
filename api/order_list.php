@@ -43,7 +43,7 @@ $order_enddate = isset($_POST['order_enddate']) ? $_POST['order_enddate'] : '';
 					
 						$sql2 = "SELECT a.oid, a.order_no, a.order_date, a.store_id, b.store_name, a.member_id, a.order_amount, a.coupon_no, a.discount_amount,a.pay_type,a.order_pay,a.pay_status,a.bonus_point,a.order_status FROM orderinfo as a ";
 						$sql2 = $sql2." left join (select * from store) as b on a.store_id=b.sid ";
-						$sql2 = $sql2." where oid>0  ";
+						$sql2 = $sql2." where oid>0 and a.store_id > 0 ";
 						if ($order_startdate != "") {	
 							$sql2 = $sql2." and order_date >= '".$order_startdate." 00:00:00'";
 						}
